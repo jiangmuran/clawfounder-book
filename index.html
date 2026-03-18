@@ -172,6 +172,7 @@
       background: rgba(255,255,255,.94);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
+      transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease;
     }
     .card,
     .architecture { border-radius: var(--radius-xl); }
@@ -333,6 +334,117 @@
     .compare-good { background: linear-gradient(180deg, rgba(22,160,133,.06), #fff 65%); }
     .highlight { background: linear-gradient(180deg, rgba(53,88,230,.05), #fff 65%); }
 
+    .card:hover,
+    .panel:hover,
+    .timeline-item:hover,
+    .metric:hover,
+    .compare:hover,
+    .architecture:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 44px rgba(15, 23, 40, 0.10);
+      border-color: #cfdceb;
+    }
+
+    .interactive-shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .stage-nav {
+      display: grid;
+      gap: 10px;
+    }
+    .stage-button {
+      width: 100%;
+      text-align: left;
+      padding: 14px 14px 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.88);
+      color: var(--ink);
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .stage-button:hover {
+      transform: translateY(-1px);
+      border-color: #cddaf0;
+      box-shadow: var(--shadow);
+    }
+    .stage-button.active {
+      background: linear-gradient(180deg, rgba(53,88,230,.08), rgba(22,160,133,.04));
+      border-color: #bfd0fb;
+      box-shadow: var(--shadow);
+    }
+    .stage-button strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .stage-button span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .stage-preview {
+      padding: 16px;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.96);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .stage-preview-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      align-items: baseline;
+    }
+    .stage-preview-head h3 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: -.02em;
+    }
+    .stage-preview-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 620px;
+    }
+    .stage-kpis {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .stage-kpis span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--paper-soft);
+      border: 1px solid var(--line-soft);
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .stage-canvas {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, #f7faff, #ffffff);
+      min-height: 320px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .footer-note {
       margin-top: 12px;
       font-size: 12px;
@@ -346,7 +458,8 @@
       .numbers,
       .compare-grid,
       .timeline,
-      .stat-row { grid-template-columns: 1fr; }
+      .stat-row,
+      .interactive-shell { grid-template-columns: 1fr; }
     }
     @media (max-width: 760px) {
       .nav { display: none; }
@@ -360,7 +473,27 @@
       .panel ul,
       .metric p,
       .compare ul,
-      .timeline-item p { font-size: 13px; }
+      .timeline-item p,
+      .stage-preview-head p { font-size: 13px; }
+      .stage-button strong { font-size: 12px; }
+      .stage-button span,
+      .stage-kpis span { font-size: 11px; }
+      .stage-canvas { min-height: 240px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .card,
+      .panel,
+      .timeline-item,
+      .metric,
+      .compare,
+      .architecture,
+      .stage-button,
+      .reveal {
+        transition: none !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -516,7 +649,53 @@
       </div>
     </section>
 
-    <section class="section" id="architecture">
+    <section class="section reveal" id="demo">
+      <div class="container">
+        <div class="eyebrow">Interactive Demo</div>
+        <h2 class="title">交互式流程演示：点击不同阶段，查看系统在该阶段的输入、动作与输出。</h2>
+        <p class="subtitle">该模块用于让评委快速理解系统如何实际工作，而不是只看静态文字说明。</p>
+        <div class="interactive-shell">
+          <div class="stage-nav" id="stage-nav">
+            <button class="stage-button active" type="button" data-stage="idea">
+              <strong>01 · Idea Intake</strong>
+              <span>接收想法、问题定义与目标用户，完成方向判断。</span>
+            </button>
+            <button class="stage-button" type="button" data-stage="spec">
+              <strong>02 · Spec Generation</strong>
+              <span>生成白皮书、用户故事、MVP 范围与任务清单。</span>
+            </button>
+            <button class="stage-button" type="button" data-stage="build">
+              <strong>03 · Prototype & Repo</strong>
+              <span>将规格交给编码代理，生成原型并建立 GitHub 资产。</span>
+            </button>
+            <button class="stage-button" type="button" data-stage="launch">
+              <strong>04 · Launch Assets</strong>
+              <span>生成说明页、官网、品牌视觉和公开访问入口。</span>
+            </button>
+            <button class="stage-button" type="button" data-stage="bridge">
+              <strong>05 · Phone Bridge</strong>
+              <span>通过 ADB 接入手机，处理短信验证码与扫码确认。</span>
+            </button>
+          </div>
+          <div class="stage-preview">
+            <div class="stage-preview-head">
+              <div>
+                <h3 id="stage-title">Idea Intake</h3>
+                <p id="stage-desc">接收创意、问题定义与目标用户，完成方向澄清与价值判断，避免在未明确目标前直接进入开发。</p>
+              </div>
+            </div>
+            <div class="stage-kpis" id="stage-kpis">
+              <span>输入：idea / audience</span>
+              <span>输出：方向判断</span>
+              <span>角色：Idea Forge</span>
+            </div>
+            <div class="stage-canvas" id="stage-canvas"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="architecture">
       <div class="container">
         <div class="eyebrow">Architecture</div>
         <h2 class="title">架构图：系统由编排层、现实接口层、输出层三部分构成。</h2>
@@ -701,5 +880,169 @@
       </div>
     </section>
   </main>
+  <script>
+    const stageData = {
+      idea: {
+        title: 'Idea Intake',
+        desc: '接收创意、问题定义与目标用户，完成方向澄清与价值判断，避免在未明确目标前直接进入开发。',
+        kpis: ['输入：idea / audience', '输出：方向判断', '角色：Idea Forge'],
+        svg: `
+          <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+            <rect width="760" height="340" fill="#f8fbff"/>
+            <rect x="30" y="36" width="188" height="268" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="56" y="78" fill="#3558e6" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">INPUT</text>
+            <text x="56" y="112" fill="#111827" font-size="26" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Idea</text>
+            <rect x="56" y="138" width="116" height="10" rx="5" fill="#e4ebf5"/>
+            <rect x="56" y="158" width="94" height="10" rx="5" fill="#edf2f8"/>
+            <rect x="56" y="204" width="108" height="34" rx="17" fill="#3558e6"/>
+            <text x="84" y="226" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Evaluate</text>
+            <rect x="286" y="74" width="188" height="192" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="316" y="112" fill="#3558e6" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ENGINE</text>
+            <text x="316" y="146" fill="#111827" font-size="22" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Idea Forge</text>
+            <rect x="316" y="172" width="128" height="10" rx="5" fill="#e4ebf5"/>
+            <rect x="316" y="192" width="98" height="10" rx="5" fill="#edf2f8"/>
+            <rect x="542" y="36" width="188" height="268" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="568" y="78" fill="#16a085" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">OUTPUT</text>
+            <text x="568" y="112" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">方向判断</text>
+            <rect x="568" y="138" width="116" height="10" rx="5" fill="#e4ebf5"/>
+            <rect x="568" y="158" width="102" height="10" rx="5" fill="#edf2f8"/>
+            <path d="M218 170H286" stroke="#3558e6" stroke-width="4" stroke-linecap="round"/>
+            <path d="M474 170H542" stroke="#16a085" stroke-width="4" stroke-linecap="round"/>
+          </svg>`
+      },
+      spec: {
+        title: 'Spec Generation',
+        desc: '围绕确定的方向生成白皮书、用户故事、MVP 范围和执行清单，使后续开发具备清晰规格。',
+        kpis: ['输入：validated idea', '输出：whitepaper / MVP', '角色：Spec Writer'],
+        svg: `
+          <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+            <rect width="760" height="340" fill="#f8fbff"/>
+            <rect x="44" y="44" width="240" height="252" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="70" y="84" fill="#3558e6" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">DOCUMENT</text>
+            <text x="70" y="118" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Whitepaper</text>
+            <rect x="70" y="146" width="150" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="70" y="162" width="132" height="8" rx="4" fill="#edf2f8"/>
+            <rect x="70" y="178" width="160" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="70" y="210" width="130" height="30" rx="15" fill="#3558e6"/>
+            <text x="102" y="229" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">MVP Scope</text>
+            <rect x="474" y="44" width="242" height="252" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="500" y="84" fill="#16a085" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">TASK LIST</text>
+            <text x="500" y="118" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Execution Plan</text>
+            <rect x="500" y="146" width="152" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="500" y="162" width="126" height="8" rx="4" fill="#edf2f8"/>
+            <rect x="500" y="178" width="164" height="8" rx="4" fill="#e4ebf5"/>
+            <path d="M284 170H474" stroke="#3558e6" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 10"/>
+          </svg>`
+      },
+      build: {
+        title: 'Prototype & Repo',
+        desc: '将规格交给编码代理生成可运行原型，并在 GitHub 中建立仓库与项目资产。',
+        kpis: ['输入：spec / tasks', '输出：prototype / repo', '角色：Build Relay'],
+        svg: `
+          <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+            <rect width="760" height="340" fill="#f8fbff"/>
+            <rect x="42" y="58" width="286" height="224" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="70" y="96" fill="#3558e6" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">BUILD</text>
+            <text x="70" y="130" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Prototype Agent</text>
+            <rect x="70" y="158" width="140" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="70" y="174" width="110" height="8" rx="4" fill="#edf2f8"/>
+            <rect x="70" y="208" width="130" height="32" rx="16" fill="#3558e6"/>
+            <text x="102" y="229" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Generate</text>
+            <rect x="432" y="58" width="286" height="224" rx="24" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="460" y="96" fill="#16a085" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ASSET</text>
+            <text x="460" y="130" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">GitHub Repository</text>
+            <rect x="460" y="158" width="146" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="460" y="174" width="124" height="8" rx="4" fill="#edf2f8"/>
+            <rect x="460" y="208" width="138" height="32" rx="16" fill="#16a085"/>
+            <text x="493" y="229" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Push</text>
+            <path d="M328 170H432" stroke="#3558e6" stroke-width="4" stroke-linecap="round"/>
+          </svg>`
+      },
+      launch: {
+        title: 'Launch Assets',
+        desc: '补齐说明书、官网、品牌视觉和访问入口，使项目从可运行状态升级为可评审、可传播状态。',
+        kpis: ['输入：repo / prototype', '输出：site / public link', '角色：Launch Engine'],
+        svg: `
+          <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+            <rect width="760" height="340" fill="#f8fbff"/>
+            <rect x="40" y="42" width="680" height="256" rx="26" fill="#ffffff" stroke="#dfe7f2"/>
+            <rect x="62" y="62" width="636" height="34" rx="12" fill="#f8fbff" stroke="#e7edf5"/>
+            <circle cx="82" cy="79" r="5" fill="#ff8b7b"/>
+            <circle cx="100" cy="79" r="5" fill="#ffcb5c"/>
+            <circle cx="118" cy="79" r="5" fill="#16a085"/>
+            <rect x="142" y="72" width="192" height="14" rx="7" fill="#edf3ff"/>
+            <rect x="62" y="116" width="196" height="150" rx="18" fill="#fbfdff" stroke="#e2eaf4"/>
+            <text x="82" y="148" fill="#111827" font-size="22" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Project Site</text>
+            <rect x="82" y="170" width="118" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="82" y="186" width="144" height="8" rx="4" fill="#edf2f8"/>
+            <rect x="82" y="216" width="120" height="30" rx="15" fill="#3558e6"/>
+            <text x="114" y="235" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Publish</text>
+            <rect x="292" y="116" width="186" height="150" rx="18" fill="#fbfdff" stroke="#e2eaf4"/>
+            <text x="316" y="148" fill="#111827" font-size="18" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Brand Assets</text>
+            <rect x="316" y="170" width="96" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="316" y="186" width="118" height="8" rx="4" fill="#edf2f8"/>
+            <rect x="512" y="116" width="186" height="150" rx="18" fill="#fbfdff" stroke="#e2eaf4"/>
+            <text x="536" y="148" fill="#111827" font-size="18" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Public Link</text>
+            <rect x="536" y="170" width="94" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="536" y="186" width="128" height="8" rx="4" fill="#edf2f8"/>
+          </svg>`
+      },
+      bridge: {
+        title: 'Phone Bridge',
+        desc: '通过 ADB 接入 root 手机，读取短信验证码并处理扫码确认，将现实世界的登录动作纳入统一工作流。',
+        kpis: ['输入：OTP / QR task', '输出：verified session', '角色：Phone Bridge'],
+        svg: `
+          <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+            <rect width="760" height="340" fill="#f8fbff"/>
+            <rect x="72" y="46" width="170" height="248" rx="26" fill="#162033"/>
+            <rect x="84" y="62" width="146" height="182" rx="18" fill="#f0f5ff"/>
+            <rect x="308" y="62" width="380" height="86" rx="22" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="336" y="97" fill="#111827" font-size="20" font-weight="700" font-family="Inter, PingFang SC, sans-serif">SMS OTP received</text>
+            <rect x="336" y="112" width="138" height="8" rx="4" fill="#e4ebf5"/>
+            <rect x="308" y="176" width="380" height="86" rx="22" fill="#ffffff" stroke="#dfe7f2"/>
+            <text x="336" y="211" fill="#111827" font-size="20" font-weight="700" font-family="Inter, PingFang SC, sans-serif">QR login confirmed</text>
+            <rect x="336" y="226" width="146" height="8" rx="4" fill="#e4ebf5"/>
+            <path d="M242 135H308" stroke="#d9911b" stroke-width="4" stroke-linecap="round"/>
+            <path d="M242 219H308" stroke="#16a085" stroke-width="4" stroke-linecap="round"/>
+          </svg>`
+      }
+    };
+
+    const stageNav = document.getElementById('stage-nav');
+    const stageTitle = document.getElementById('stage-title');
+    const stageDesc = document.getElementById('stage-desc');
+    const stageKpis = document.getElementById('stage-kpis');
+    const stageCanvas = document.getElementById('stage-canvas');
+
+    function renderStage(key) {
+      const stage = stageData[key];
+      if (!stage) return;
+      stageTitle.textContent = stage.title;
+      stageDesc.textContent = stage.desc;
+      stageKpis.innerHTML = stage.kpis.map(item => `<span>${item}</span>`).join('');
+      stageCanvas.innerHTML = stage.svg;
+      stageNav.querySelectorAll('.stage-button').forEach(button => {
+        button.classList.toggle('active', button.dataset.stage === key);
+      });
+    }
+
+    stageNav?.addEventListener('click', (event) => {
+      const button = event.target.closest('.stage-button');
+      if (!button) return;
+      renderStage(button.dataset.stage);
+    });
+    renderStage('idea');
+
+    const revealTargets = document.querySelectorAll('.panel, .metric, .compare, .timeline-item, .architecture, .quote, .card, .stage-preview, .stage-button, .section h2, .section p.subtitle');
+    revealTargets.forEach((element) => element.classList.add('reveal'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    revealTargets.forEach((element) => observer.observe(element));
+  </script>
 </body>
 </html>
