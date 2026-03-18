@@ -62,13 +62,13 @@
       gap: 12px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      font-size: 15px;
+      font-size: 13px;
     }
     .brand small {
       display: block;
       color: var(--muted);
       font-weight: 600;
-      font-size: 11px;
+      font-size: 10px;
       margin-top: 1px;
     }
     .brand-mark {
@@ -84,7 +84,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
       font-weight: 600;
     }
@@ -114,15 +114,15 @@
 
     .title {
       margin: 0 0 10px;
-      font-size: clamp(20px, 2.5vw, 28px);
-      line-height: 1.18;
-      letter-spacing: -0.025em;
+      font-size: clamp(16px, 1.8vw, 21px);
+      line-height: 1.24;
+      letter-spacing: -0.015em;
     }
     .subtitle {
       margin: 0;
       max-width: 820px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 11px;
     }
 
     .hero {
@@ -136,17 +136,17 @@
     }
     .hero h1 {
       margin: 0 0 16px;
-      font-size: clamp(26px, 3.6vw, 40px);
-      line-height: 1.14;
-      letter-spacing: -0.03em;
-      max-width: 11.5em;
+      font-size: clamp(19px, 2.5vw, 28px);
+      line-height: 1.24;
+      letter-spacing: -0.015em;
+      max-width: 13.5em;
       text-wrap: balance;
     }
     .hero .soft { display: block; color: #7a879d; }
     .hero .strong { color: var(--ink); }
     .hero p {
       margin: 0 0 18px;
-      font-size: 14px;
+      font-size: 12px;
       color: #44526a;
       max-width: 720px;
     }
@@ -161,7 +161,7 @@
       background: rgba(255,255,255,.86);
       border: 1px solid var(--line);
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
     }
 
@@ -174,7 +174,7 @@
       background: rgba(255,255,255,.94);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
-      transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease;
+      transition: box-shadow .18s ease, border-color .18s ease, opacity .25s ease;
     }
     .card,
     .architecture { border-radius: var(--radius-xl); }
@@ -221,10 +221,10 @@
     .stat strong {
       display: block;
       margin-bottom: 3px;
-      font-size: 16px;
-      letter-spacing: -0.02em;
+      font-size: 14px;
+      letter-spacing: -0.01em;
     }
-    .stat span { font-size: 10px; color: var(--muted); }
+    .stat span { font-size: 9px; color: var(--muted); }
 
     .grid-2,
     .grid-3,
@@ -249,9 +249,9 @@
     .compare h3,
     .timeline-item h3 {
       margin: 0 0 8px;
-      font-size: 16px;
-      line-height: 1.28;
-      letter-spacing: -0.015em;
+      font-size: 14px;
+      line-height: 1.32;
+      letter-spacing: -0.01em;
     }
     .panel p,
     .metric p,
@@ -259,14 +259,14 @@
     .timeline-item p {
       margin: 0;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 11px;
     }
     .panel ul,
     .compare ul {
       margin: 10px 0 0;
       padding-left: 18px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 11px;
     }
     .panel li + li,
     .compare li + li { margin-top: 6px; }
@@ -288,14 +288,14 @@
     }
     .quote p {
       margin: 0 0 8px;
-      font-size: 17px;
-      line-height: 1.58;
+      font-size: 13px;
+      line-height: 1.66;
       font-weight: 700;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.005em;
     }
     .quote small {
       color: rgba(255,255,255,.86);
-      font-size: 12px;
+      font-size: 10px;
     }
 
     .timeline-item {
@@ -326,10 +326,10 @@
 
     .metric strong {
       display: block;
-      font-size: 22px;
+      font-size: 16px;
       line-height: 1;
       margin-bottom: 8px;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.015em;
     }
 
     .compare-risk { background: linear-gradient(180deg, rgba(217,91,114,.06), #fff 65%); }
@@ -342,8 +342,7 @@
     .metric:hover,
     .compare:hover,
     .architecture:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 44px rgba(15, 23, 40, 0.10);
+      box-shadow: 0 18px 40px rgba(15, 23, 40, 0.10);
       border-color: #cfdceb;
     }
 
@@ -366,10 +365,9 @@
       background: rgba(255,255,255,.88);
       color: var(--ink);
       cursor: pointer;
-      transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+      transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, opacity .25s ease;
     }
     .stage-button:hover {
-      transform: translateY(-1px);
       border-color: #cddaf0;
       box-shadow: var(--shadow);
     }
@@ -380,13 +378,13 @@
     }
     .stage-button strong {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       margin-bottom: 4px;
     }
     .stage-button span {
       display: block;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1.5;
     }
     .stage-preview {
@@ -405,13 +403,13 @@
     }
     .stage-preview-head h3 {
       margin: 0;
-      font-size: 17px;
-      letter-spacing: -.02em;
+      font-size: 13px;
+      letter-spacing: -.01em;
     }
     .stage-preview-head p {
       margin: 4px 0 0;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 11px;
       max-width: 620px;
     }
     .stage-kpis {
@@ -421,11 +419,11 @@
       margin-bottom: 12px;
     }
     .stage-kpis span {
-      padding: 6px 10px;
+      padding: 5px 9px;
       border-radius: 999px;
       background: var(--paper-soft);
       border: 1px solid var(--line-soft);
-      font-size: 11px;
+      font-size: 9px;
       color: var(--muted);
       font-weight: 600;
     }
@@ -439,12 +437,10 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity .5s ease, transform .5s ease;
+      transition: opacity .45s ease;
     }
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
     }
 
     .footer-note {
@@ -465,15 +461,15 @@
     }
     @media (max-width: 760px) {
       .nav { display: none; }
-      .section { padding: 48px 0; }
-      .hero { padding-top: 34px; }
+      .section { padding: 44px 0; }
+      .hero { padding-top: 30px; }
       .hero h1 {
-        font-size: clamp(24px, 8.2vw, 31px);
-        line-height: 1.18;
-        letter-spacing: -0.025em;
+        font-size: clamp(18px, 6.6vw, 24px);
+        line-height: 1.26;
+        letter-spacing: -0.01em;
         max-width: none;
       }
-      .title { font-size: clamp(18px, 7vw, 24px); }
+      .title { font-size: clamp(16px, 5.6vw, 20px); }
       .hero p,
       .subtitle,
       .panel p,
@@ -481,11 +477,11 @@
       .metric p,
       .compare ul,
       .timeline-item p,
-      .stage-preview-head p { font-size: 13px; }
-      .stage-button strong { font-size: 12px; }
+      .stage-preview-head p { font-size: 11px; }
+      .stage-button strong { font-size: 10px; }
       .stage-button span,
-      .stage-kpis span { font-size: 11px; }
-      .stage-canvas { min-height: 240px; }
+      .stage-kpis span { font-size: 9px; }
+      .stage-canvas { min-height: 200px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
