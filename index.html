@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ClawFounder｜面向 OPC 的 AI 创业流水线</title>
-  <meta name="description" content="ClawFounder 是一套面向 OPC（One-Person Company）的 AI 创业流水线，用于将 idea、原型、上线、推广与手机短信/扫码登录接入收敛为统一闭环。" />
+  <meta name="description" content="ClawFounder 是一套面向 OPC（One-Person Company）的 AI 创业流水线，用于将 idea、原型、上线、推广与通过 ADB 接管独立手机的现实接口接入收敛为统一闭环。" />
   <style>
     :root {
       --bg: #f3f6fb;
@@ -546,13 +546,13 @@
           <p>
             <strong>ClawFounder</strong> 是一套面向 <strong>OPC（One-Person Company）</strong> 的 AI 创业流水线系统。
             系统将 <strong>点子讨论、白皮书生成、原型开发、GitHub 建仓、官网上线、内容推广、阶段汇报</strong> 收敛为统一闭环；
-            并通过 <strong>ADB 接入 root 手机</strong>，补足 <strong>短信验证码接收与扫码登录辅助</strong> 这类现实世界中最常见的自动化断点。
+            并通过 <strong>ADB 接管独立手机</strong>，把需要移动端介入的现实世界动作纳入统一工作流，补足传统自动化最常见的执行断点。
           </p>
           <div class="tags">
             <span class="tag">Idea → Whitepaper → Prototype</span>
             <span class="tag">Repo → Site → Public Link</span>
             <span class="tag">Notes → Article → Promotion</span>
-            <span class="tag">ADB → SMS → QR Login</span>
+            <span class="tag">ADB → 独立手机 → 现实接口</span>
           </div>
         </div>
 
@@ -677,7 +677,7 @@
             </button>
             <button class="stage-button" type="button" data-stage="bridge">
               <strong>05 · Phone Bridge</strong>
-              <span>通过 ADB 接入手机，处理短信验证码与扫码确认。</span>
+              <span>通过 ADB 接管独立手机，处理移动端专属动作与平台确认。</span>
             </button>
           </div>
           <div class="stage-preview">
@@ -702,7 +702,7 @@
       <div class="container">
         <div class="eyebrow">Architecture</div>
         <h2 class="title">架构图：系统由编排层、现实接口层、输出层三部分构成。</h2>
-        <p class="subtitle">其中现实接口层通过 ADB + root 手机接入短信验证码和扫码登录辅助，是该系统区别于普通 Agent 展示的关键结构。</p>
+        <p class="subtitle">其中现实接口层通过 ADB + 独立手机接入移动端专属动作，是该系统区别于普通 Agent 展示的关键结构。</p>
         <div class="architecture">
           <svg viewBox="0 0 1120 400" xmlns="http://www.w3.org/2000/svg">
             <rect width="1120" height="400" rx="24" fill="#fbfdff"/>
@@ -728,7 +728,7 @@
             <rect x="718" y="112" width="74" height="148" rx="18" fill="#162033"/>
             <rect x="726" y="124" width="58" height="98" rx="11" fill="#f0f5ff"/>
             <rect x="686" y="286" width="138" height="28" rx="14" fill="#ebf8f4"/>
-            <text x="711" y="304" fill="#117661" font-size="10" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ADB / SMS / QR Login</text>
+            <text x="711" y="304" fill="#117661" font-size="10" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ADB / Device Bridge</text>
 
             <rect x="904" y="88" width="182" height="224" rx="20" fill="#fff" stroke="#dfe7f2"/>
             <text x="930" y="122" fill="#3558e6" font-size="11" font-weight="700" font-family="Inter, PingFang SC, sans-serif">OUTPUT LAYER</text>
@@ -785,20 +785,20 @@
           </div>
           <div class="panel highlight">
             <div class="mini">D</div>
-            <h3>短信验证码接入</h3>
-            <p>通过 ADB 连接 root 手机，读取 OTP，补足真实登录链路。</p>
+            <h3>独立手机接管</h3>
+            <p>通过 ADB 连接独立手机，将移动端专属动作接入统一工作流。</p>
             <ul>
-              <li>验证码自动接收</li>
+              <li>接管独立设备执行动作</li>
               <li>减少人工切换设备</li>
-              <li>适配注册与登录流程</li>
+              <li>补足桌面端缺失的移动端能力</li>
             </ul>
           </div>
           <div class="panel highlight">
             <div class="mini">E</div>
-            <h3>扫码登录辅助</h3>
-            <p>将扫码确认纳入统一编排，而不是让自动化在此中断。</p>
+            <h3>移动端动作桥接</h3>
+            <p>将需要手机参与的平台动作纳入统一编排，而不是让自动化在此中断。</p>
             <ul>
-              <li>适配需要手机确认的平台</li>
+              <li>适配需要移动端参与的平台</li>
               <li>降低账号接入摩擦</li>
               <li>补足现实世界接口</li>
             </ul>
@@ -849,7 +849,7 @@
             <ul>
               <li>强调资料检索、代码生成、消息发送等单点能力</li>
               <li>多个功能并列展示，但未必形成可持续项目闭环</li>
-              <li>验证码、扫码登录、平台确认等环节易成为断点</li>
+              <li>涉及移动端介入、平台确认与设备切换的环节易成为断点</li>
               <li>更像能力集合，而不是稳定系统</li>
             </ul>
           </div>
@@ -878,7 +878,7 @@
         <div class="panel">
           <div class="mini">One-line Summary</div>
           <h3>摘要</h3>
-          <p>ClawFounder 是一套面向 OPC 的 AI 创业流水线：它将 idea、白皮书、原型、GitHub、官网、推广与手机验证码 / 扫码登录接入收敛为一个可持续推进的项目闭环。</p>
+          <p>ClawFounder 是一套面向 OPC 的 AI 创业流水线：它将 idea、白皮书、原型、GitHub、官网、推广与通过 ADB 接管独立手机的现实接口收敛为一个可持续推进的项目闭环。</p>
         </div>
       </div>
     </section>
@@ -992,18 +992,18 @@
       },
       bridge: {
         title: 'Phone Bridge',
-        desc: '通过 ADB 接入 root 手机，读取短信验证码并处理扫码确认，将现实世界的登录动作纳入统一工作流。',
-        kpis: ['输入：OTP / QR task', '输出：verified session', '角色：Phone Bridge'],
+        desc: '通过 ADB 接管独立手机，将移动端专属动作与平台确认纳入统一工作流。',
+        kpis: ['输入：mobile task', '输出：device-confirmed action', '角色：Phone Bridge'],
         svg: `
           <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
             <rect width="760" height="340" fill="#f8fbff"/>
             <rect x="72" y="46" width="170" height="248" rx="26" fill="#162033"/>
             <rect x="84" y="62" width="146" height="182" rx="18" fill="#f0f5ff"/>
             <rect x="308" y="62" width="380" height="86" rx="22" fill="#ffffff" stroke="#dfe7f2"/>
-            <text x="336" y="97" fill="#111827" font-size="20" font-weight="700" font-family="Inter, PingFang SC, sans-serif">SMS OTP received</text>
+            <text x="336" y="97" fill="#111827" font-size="20" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Independent device connected</text>
             <rect x="336" y="112" width="138" height="8" rx="4" fill="#e4ebf5"/>
             <rect x="308" y="176" width="380" height="86" rx="22" fill="#ffffff" stroke="#dfe7f2"/>
-            <text x="336" y="211" fill="#111827" font-size="20" font-weight="700" font-family="Inter, PingFang SC, sans-serif">QR login confirmed</text>
+            <text x="336" y="211" fill="#111827" font-size="20" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Mobile action completed</text>
             <rect x="336" y="226" width="146" height="8" rx="4" fill="#e4ebf5"/>
             <path d="M242 135H308" stroke="#d9911b" stroke-width="4" stroke-linecap="round"/>
             <path d="M242 219H308" stroke="#16a085" stroke-width="4" stroke-linecap="round"/>
