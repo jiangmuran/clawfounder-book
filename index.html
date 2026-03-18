@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClawFounder｜会创业的龙虾</title>
+  <meta name="description" content="把一个人的创业流程，编译成一条 AI 流水线。ClawFounder 是一只会把 idea 变成产品、品牌、网站与增长动作的创业龙虾。" />
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(8, 18, 34, 0.68);
+      --panel-strong: rgba(11, 24, 44, 0.92);
+      --line: rgba(135, 234, 215, 0.18);
+      --text: #ecf7ff;
+      --muted: #9db3c9;
+      --accent: #72f4db;
+      --accent-2: #7da5ff;
+      --accent-3: #ffd166;
+      --danger: #ff7f96;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(114, 244, 219, 0.12), transparent 28%),
+        radial-gradient(circle at 90% 12%, rgba(125, 165, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(255, 209, 102, 0.08), transparent 26%),
+        linear-gradient(180deg, #07111f 0%, #081422 40%, #050b14 100%);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+    .section { padding: 72px 0; position: relative; }
+    .section-title {
+      font-size: clamp(30px, 4.8vw, 52px);
+      line-height: 1.08;
+      margin: 0 0 14px;
+      letter-spacing: -0.03em;
+    }
+    .section-subtitle {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      background: rgba(114, 244, 219, 0.06);
+      border-radius: 999px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #c7fff3;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 14px rgba(114, 244, 219, 0.8);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 36px 0 48px;
+      position: relative;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5,11,20,0.15), rgba(5,11,20,0.55));
+      z-index: -1;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 34px;
+      align-items: center;
+    }
+    .hero-title {
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      margin: 0 0 22px;
+      max-width: 900px;
+    }
+    .hero-title .fade { color: #8ca2bb; display: block; }
+    .hero-title .glow {
+      background: linear-gradient(120deg, #ffffff 10%, #cffff0 36%, #7da5ff 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 24px rgba(125, 165, 255, 0.18);
+    }
+    .hero-copy {
+      color: #d3e6f7;
+      font-size: clamp(18px, 2vw, 21px);
+      max-width: 740px;
+      margin-bottom: 28px;
+    }
+    .hero-copy strong { color: #ffffff; }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), #82c6ff);
+      color: #05111d;
+      box-shadow: 0 18px 40px rgba(114, 244, 219, 0.24);
+    }
+    .button.secondary {
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: #f3fbff;
+    }
+    .hero-note {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 780px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(114, 244, 219, 0.04);
+      text-align: center;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(10,22,40,0.9), rgba(8,18,34,0.75));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .hero-panel {
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -24% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(114,244,219,0.22), transparent 66%);
+      filter: blur(16px);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(114,244,219,0.09);
+      border: 1px solid rgba(114,244,219,0.15);
+      color: #d4fff5;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+    .stat span { color: var(--muted); font-size: 13px; }
+
+    .story-grid,
+    .compare-grid,
+    .value-grid,
+    .scene-grid,
+    .footer-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .story-grid { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+    .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .value-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .scene-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .footer-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
+
+    .panel {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(12, 25, 45, 0.86), rgba(8, 17, 31, 0.9));
+      box-shadow: var(--shadow);
+    }
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+    .panel p, .panel li { color: var(--muted); }
+    .panel strong { color: #ffffff; }
+    .panel ul { margin: 12px 0 0; padding-left: 18px; }
+
+    .quote {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(125,165,255,0.18);
+      background: linear-gradient(180deg, rgba(125,165,255,0.11), rgba(114,244,219,0.04));
+      overflow: hidden;
+    }
+    .quote::before {
+      content: "“";
+      position: absolute;
+      top: -20px;
+      left: 18px;
+      font-size: 140px;
+      line-height: 1;
+      color: rgba(255,255,255,0.08);
+      font-family: Georgia, serif;
+    }
+    .quote p { font-size: 22px; margin: 0 0 12px; color: #f5fbff; }
+    .quote small { color: var(--muted); }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+    }
+    .timeline-step {
+      position: relative;
+      padding: 18px 18px 18px 72px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .timeline-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #041018;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 24px rgba(114, 244, 219, 0.22);
+    }
+    .timeline-step h4 { margin: 0 0 6px; font-size: 19px; }
+    .timeline-step p { margin: 0; color: var(--muted); }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .module {
+      position: relative;
+      padding: 22px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(9,21,39,0.95), rgba(7,15,28,0.92));
+      overflow: hidden;
+    }
+    .module::after {
+      content: "";
+      position: absolute;
+      inset: auto -15% -30% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(125,165,255,0.18), transparent 70%);
+      filter: blur(18px);
+    }
+    .module .label {
+      color: #c8fff4;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .module h3 { margin: 0 0 10px; font-size: 26px; }
+    .module p { margin: 0 0 12px; color: var(--muted); }
+    .module ul { margin: 0; padding-left: 18px; color: #d7e8f6; }
+
+    .compare {
+      padding: 24px;
+      border-radius: 22px;
+      min-height: 100%;
+    }
+    .compare.good {
+      background: linear-gradient(180deg, rgba(114,244,219,0.08), rgba(114,244,219,0.03));
+      border: 1px solid rgba(114,244,219,0.16);
+    }
+    .compare.risk {
+      background: linear-gradient(180deg, rgba(255,127,150,0.08), rgba(255,127,150,0.03));
+      border: 1px solid rgba(255,127,150,0.16);
+    }
+    .compare h3 { margin: 0 0 12px; font-size: 24px; }
+    .compare ul { margin: 0; padding-left: 18px; }
+    .compare li { color: var(--muted); margin: 8px 0; }
+
+    .metric {
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(10,22,40,0.9), rgba(8,18,34,0.72));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+      min-height: 100%;
+    }
+    .metric strong {
+      display: block;
+      font-size: 34px;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+    .metric p { margin: 0; color: var(--muted); }
+
+    .scene {
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(11,24,44,0.92), rgba(7,15,28,0.9));
+      min-height: 100%;
+    }
+    .scene h3 { margin: 0 0 10px; font-size: 24px; }
+    .scene p { margin: 0 0 12px; color: var(--muted); }
+    .scene .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .flow span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: #d5ebf8;
+      font-size: 13px;
+    }
+
+    .story-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .story-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+    }
+    .story-item strong { color: #fff; }
+
+    .footer-card {
+      padding: 26px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(10,23,42,0.94), rgba(7,15,28,0.9));
+      box-shadow: var(--shadow);
+    }
+    .footer-card ul { margin: 14px 0 0; padding-left: 18px; color: var(--muted); }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 11, 20, 0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .topbar-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(114,244,219,0.18), rgba(125,165,255,0.22));
+      border: 1px solid rgba(255,255,255,0.1);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+    }
+    .brand small { display: block; color: var(--muted); font-weight: 500; }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .nav a:hover { color: #fff; }
+
+    .illustration {
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(7,15,28,0.9), rgba(11,24,44,0.9));
+    }
+
+    .muted { color: var(--muted); }
+    .accent { color: var(--accent); }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .story-grid,
+      .footer-grid,
+      .scene-grid,
+      .value-grid,
+      .compare-grid,
+      .modules { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .hero-note { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .section { padding: 58px 0; }
+      .topbar-inner { min-height: 62px; }
+      .nav { display: none; }
+      .hero-panel, .panel, .module, .scene, .metric, .quote, .footer-card { padding: 20px; }
+      .timeline-step { padding-left: 64px; }
+      .hero-title { font-size: clamp(38px, 15vw, 62px); }
+      .hero-copy { font-size: 17px; }
+      .brand small { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 35C14 22.85 23.85 13 36 13C44.28 13 51 19.72 51 28C51 35.18 45.18 41 38 41H24C18.48 41 14 36.52 14 31V35Z" stroke="url(#g1)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M23 43C23 50.18 28.82 56 36 56C45.39 56 53 48.39 53 39" stroke="url(#g2)" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M17 26L8 20" stroke="#72F4DB" stroke-width="4" stroke-linecap="round"/>
+            <path d="M14 33L5 33" stroke="#7DA5FF" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="37.5" cy="27.5" r="2.5" fill="#ECF7FF"/>
+            <defs>
+              <linearGradient id="g1" x1="14" y1="13" x2="52" y2="41" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#72F4DB"/>
+                <stop offset="1" stop-color="#7DA5FF"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="23" y1="39" x2="53" y2="56" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFD166"/>
+                <stop offset="1" stop-color="#72F4DB"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span>
+          ClawFounder
+          <small>会创业的龙虾</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#problem">问题</a>
+        <a href="#pipeline">流水线</a>
+        <a href="#modules">模块</a>
+        <a href="#scenes">场景</a>
+        <a href="#value">价值</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Project Brief · Solo Founder OS</div>
+          <h1 class="hero-title">
+            <span class="fade">OpenClaw 爆火之后，</span>
+            <span class="glow">我最先担心的不是它不够强，<br />而是它已经太能动了。</span>
+          </h1>
+          <p class="hero-copy">
+            所以我没有继续追求一个“更强的助手”，而是把它训练成了<strong>一只会创业的龙虾</strong>：
+            它有边界，会接棒，会推动项目生命周期，把一个人的创业流程压缩成一条可重复执行的 AI 流水线。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#pipeline">看完整流水线</a>
+            <a class="button secondary" href="#modules">看核心模块</a>
+          </div>
+          <div class="hero-note">
+            <div class="chip">Idea → 白皮书 → 原型 → GitHub</div>
+            <div class="chip">品牌视觉 → 官网 → GitHub Pages</div>
+            <div class="chip">推广计划 → 内容产出 → 周期汇报</div>
+          </div>
+        </div>
+
+        <aside class="card hero-panel">
+          <div class="panel-header">
+            <span class="badge">ClawFounder / Live Spec</span>
+            <span>v0.1 · Competition Deck</span>
+          </div>
+          <div class="illustration" aria-hidden="true">
+            <svg viewBox="0 0 620 480" xmlns="http://www.w3.org/2000/svg" role="img">
+              <defs>
+                <linearGradient id="panelBg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#0B1A2F"/>
+                  <stop offset="100%" stop-color="#07111F"/>
+                </linearGradient>
+                <linearGradient id="strokeA" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#72F4DB"/>
+                  <stop offset="100%" stop-color="#7DA5FF"/>
+                </linearGradient>
+                <linearGradient id="strokeB" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#FFD166"/>
+                  <stop offset="100%" stop-color="#72F4DB"/>
+                </linearGradient>
+                <filter id="blurGlow">
+                  <feGaussianBlur stdDeviation="16" result="blur"/>
+                </filter>
+              </defs>
+              <rect width="620" height="480" rx="28" fill="url(#panelBg)"/>
+              <circle cx="110" cy="94" r="56" fill="#72F4DB" opacity="0.12" filter="url(#blurGlow)"/>
+              <circle cx="510" cy="112" r="62" fill="#7DA5FF" opacity="0.14" filter="url(#blurGlow)"/>
+              <circle cx="470" cy="368" r="76" fill="#FFD166" opacity="0.10" filter="url(#blurGlow)"/>
+
+              <rect x="48" y="52" width="220" height="110" rx="22" fill="#0E2038" stroke="rgba(255,255,255,0.08)"/>
+              <text x="72" y="88" fill="#ECF7FF" font-size="22" font-family="Inter, PingFang SC, sans-serif" font-weight="700">Idea Forge</text>
+              <text x="72" y="120" fill="#9DB3C9" font-size="14" font-family="Inter, PingFang SC, sans-serif">跟模型讨论需求、生成白皮书、做价值判断</text>
+
+              <rect x="352" y="52" width="220" height="110" rx="22" fill="#0E2038" stroke="rgba(255,255,255,0.08)"/>
+              <text x="376" y="88" fill="#ECF7FF" font-size="22" font-family="Inter, PingFang SC, sans-serif" font-weight="700">Build Relay</text>
+              <text x="376" y="120" fill="#9DB3C9" font-size="14" font-family="Inter, PingFang SC, sans-serif">把方案交给编码代理，生成原型并接力完善</text>
+
+              <rect x="48" y="318" width="220" height="110" rx="22" fill="#0E2038" stroke="rgba(255,255,255,0.08)"/>
+              <text x="72" y="354" fill="#ECF7FF" font-size="22" font-family="Inter, PingFang SC, sans-serif" font-weight="700">Insight Refinery</text>
+              <text x="72" y="386" fill="#9DB3C9" font-size="14" font-family="Inter, PingFang SC, sans-serif">从会议与论坛输入中提纯观点和选题</text>
+
+              <rect x="352" y="318" width="220" height="110" rx="22" fill="#0E2038" stroke="rgba(255,255,255,0.08)"/>
+              <text x="376" y="354" fill="#ECF7FF" font-size="22" font-family="Inter, PingFang SC, sans-serif" font-weight="700">Launch Engine</text>
+              <text x="376" y="386" fill="#9DB3C9" font-size="14" font-family="Inter, PingFang SC, sans-serif">生成官网、推广计划、内容与阶段周报</text>
+
+              <path d="M268 107H352" stroke="url(#strokeA)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M462 162V318" stroke="url(#strokeB)" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 12"/>
+              <path d="M268 373H352" stroke="url(#strokeA)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M158 162V318" stroke="url(#strokeB)" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 12"/>
+
+              <circle cx="310" cy="240" r="64" fill="#0D1E34" stroke="url(#strokeA)" stroke-width="4"/>
+              <path d="M272 250C272 213.549 301.549 184 338 184C362.301 184 382 203.699 382 228C382 249.539 364.539 267 343 267H293C281.402 267 272 257.598 272 246V250Z" stroke="url(#strokeA)" stroke-width="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M303 279C303 300.539 320.461 318 342 318C370.719 318 394 294.719 394 266" stroke="url(#strokeB)" stroke-width="4.6" fill="none" stroke-linecap="round"/>
+              <path d="M282 213L253 196" stroke="#72F4DB" stroke-width="4" stroke-linecap="round"/>
+              <path d="M272 247L240 247" stroke="#7DA5FF" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="341" cy="230" r="4" fill="#ECF7FF"/>
+            </svg>
+          </div>
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>1 条</strong>
+              <span>从 idea 到上线再到增长的完整闭环</span>
+            </div>
+            <div class="stat">
+              <strong>4 个</strong>
+              <span>核心模块串起独立开发者日常工序</span>
+            </div>
+            <div class="stat">
+              <strong>2 种</strong>
+              <span>输入源：新点子 + 外部会议/论坛信息</span>
+            </div>
+            <div class="stat">
+              <strong>∞</strong>
+              <span>可批量复制的微创业项目孵化能力</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="container story-grid">
+        <div>
+          <div class="eyebrow">Problem Framing</div>
+          <h2 class="section-title">真正卡住独立开发者的，通常不是不会写代码，而是流程太碎、反馈太慢、增长太贵。</h2>
+          <p class="section-subtitle">
+            绝大多数“AI 生产力”作品停在任务层：写一篇文章、做一张图、搭一个页面。ClawFounder 试图解决的是更上层的问题：
+            <span class="accent">一个人怎样持续地把点子做出来、推上线、讲出去、再迭代下一轮。</span>
+          </p>
+          <div class="story-list">
+            <div class="story-item"><strong>碎片化：</strong>想法、原型、设计、部署、推广分别散落在不同工具和不同上下文里。</div>
+            <div class="story-item"><strong>失速点：</strong>很多项目不是死在“做不出来”，而是死在“没人继续推进”。</div>
+            <div class="story-item"><strong>高门槛：</strong>一个人想完成产品、品牌、增长三件事，通常需要跨越多种职业技能。</div>
+            <div class="story-item"><strong>低复用：</strong>做完一个项目，经验没有沉淀成下一次可以重复使用的流程。</div>
+          </div>
+        </div>
+        <div class="quote">
+          <p>我想做的，不是一个更会聊天的助手，而是一套真正能推动项目生命周期前进的创业操作系统。</p>
+          <small>它要会做事，也要会接棒；要会生长，也要有边界。</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="difference">
+      <div class="container">
+        <div class="eyebrow">Why This Is Different</div>
+        <h2 class="section-title">这不是普通的 OpenClaw 使用案例，而是在 OpenClaw 之上，定义了一种新的个人创业接口。</h2>
+        <p class="section-subtitle">区别不在于会不会调工具，而在于它是否能把分散能力收敛为一个有状态、有节奏、会持续推进的项目飞轮。</p>
+        <div class="compare-grid" style="margin-top: 28px;">
+          <div class="compare risk">
+            <h3>普通 Agent Demo</h3>
+            <ul>
+              <li>展示很多功能，但难以形成稳定闭环</li>
+              <li>解决的是单次任务，而不是项目生命周期</li>
+              <li>上线后缺乏后续增长与反馈复盘</li>
+              <li>更像工具链拼接，而不是生产方式升级</li>
+            </ul>
+          </div>
+          <div class="compare good">
+            <h3>ClawFounder</h3>
+            <ul>
+              <li>把 <strong>想法—开发—上线—传播—复盘</strong> 编译成一条流水线</li>
+              <li>不是执行一次命令，而是持续推进项目状态</li>
+              <li>同时吸收会议/论坛输入，形成下一轮产品与内容机会</li>
+              <li>让个人第一次具备接近“小团队协同”的产出速度</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pipeline">
+      <div class="container">
+        <div class="eyebrow">Pipeline</div>
+        <h2 class="section-title">它把创业从一次性创作，变成可重复执行的工业流程。</h2>
+        <p class="section-subtitle">每个项目都不是一堆零散文件，而是沿着明确的状态推进：从 idea 到 market feedback，进入下一轮迭代。</p>
+        <div class="timeline">
+          <div class="timeline-step" data-step="01">
+            <h4>Idea Intake</h4>
+            <p>你抛出一个新点子，系统先与模型讨论问题定义、目标人群、价值主张和可行性，生成白皮书与产品方向。</p>
+          </div>
+          <div class="timeline-step" data-step="02">
+            <h4>Prototype Relay</h4>
+            <p>把规范文档交给编码代理，产出可运行的产品原型，建立 GitHub 仓库，让项目进入可迭代的工程状态。</p>
+          </div>
+          <div class="timeline-step" data-step="03">
+            <h4>Brand & Site</h4>
+            <p>继续生成 Logo、品牌文案、落地页和项目说明站，部署到 GitHub Pages 或自定义域名，完成对外展示面。</p>
+          </div>
+          <div class="timeline-step" data-step="04">
+            <h4>Launch & Growth</h4>
+            <p>围绕项目自动制定推广计划，输出 GitHub issue 外联方案、公众号草稿、小红书软文、自媒体脚本与阶段周报。</p>
+          </div>
+          <div class="timeline-step" data-step="05">
+            <h4>Insight Feedback</h4>
+            <p>会议录音和论坛纪要进入“观点精炼器”，被提纯为洞察、文章与下一个项目机会，重新喂回孵化飞轮。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="modules">
+      <div class="container">
+        <div class="eyebrow">Core Modules</div>
+        <h2 class="section-title">四个模块，不是四个功能，而是四个“接棒的人”。</h2>
+        <p class="section-subtitle">它们对应独立开发者最容易断裂的四段工序：方向判断、工程落地、对外发布、认知提纯。</p>
+        <div class="modules">
+          <article class="module">
+            <span class="label">Module A</span>
+            <h3>Idea Forge</h3>
+            <p>把灵感变成清晰的产品定义，而不是直接冲去写代码。</p>
+            <ul>
+              <li>跟 Gemini 讨论方向与价值</li>
+              <li>生成白皮书、用户故事、MVP 范围</li>
+              <li>过滤“看起来很酷但不值得做”的点子</li>
+            </ul>
+          </article>
+          <article class="module">
+            <span class="label">Module B</span>
+            <h3>Build Relay</h3>
+            <p>把规范文档交给代码代理接棒，再由 OpenClaw 持续完善到可上线状态。</p>
+            <ul>
+              <li>原型代码生成与仓库初始化</li>
+              <li>GitHub 推送、说明文档、站点补全</li>
+              <li>让项目从“一个想法”进入“一个资产”</li>
+            </ul>
+          </article>
+          <article class="module">
+            <span class="label">Module C</span>
+            <h3>Launch Engine</h3>
+            <p>不是只做完，而是要让外部世界能看见、理解、并愿意传播。</p>
+            <ul>
+              <li>Logo、落地页、海报与品牌文案</li>
+              <li>GitHub issue 推广计划与渠道动作</li>
+              <li>公众号、小红书、自媒体脚本与周报</li>
+            </ul>
+          </article>
+          <article class="module">
+            <span class="label">Module D</span>
+            <h3>Insight Refinery</h3>
+            <p>把会议录音、论坛纪要与行业信息，变成下一轮增长的燃料。</p>
+            <ul>
+              <li>总结核心观点与可传播结论</li>
+              <li>生成几篇风格不同的文章草稿</li>
+              <li>反哺选题库、机会池和产品方向</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="scenes">
+      <div class="container">
+        <div class="eyebrow">Typical Runs</div>
+        <h2 class="section-title">两个典型场景，覆盖“做产品”和“做增长”的真实日常。</h2>
+        <p class="section-subtitle">它不是抽象框架，而是每天都能跑起来的工作流。</p>
+        <div class="scene-grid" style="margin-top: 28px;">
+          <article class="scene">
+            <h3>场景一：一个新 idea 的 0→1 孵化</h3>
+            <p>你刚冒出一个点子，ClawFounder 会先判断值不值得做，再推动它穿过原型、仓库、官网和传播四个门槛。</p>
+            <div class="flow">
+              <span>点子输入</span>
+              <span>白皮书</span>
+              <span>产品原型</span>
+              <span>GitHub 仓库</span>
+              <span>项目官网</span>
+              <span>推广计划</span>
+              <span>阶段汇报</span>
+            </div>
+          </article>
+          <article class="scene">
+            <h3>场景二：一场会议/论坛的内容裂变</h3>
+            <p>你把录音或纪要扔进系统，它会把零散信息提纯成观点，生成公众号草稿、自媒体脚本和下一个项目的机会判断。</p>
+            <div class="flow">
+              <span>录音 / 纪要</span>
+              <span>观点提纯</span>
+              <span>文章草稿</span>
+              <span>短视频脚本</span>
+              <span>选题池</span>
+              <span>项目机会</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="value">
+      <div class="container">
+        <div class="eyebrow">Value & Outcomes</div>
+        <h2 class="section-title">它的价值，不是替代某个岗位，而是让一个人第一次拥有“整家公司”的节奏。</h2>
+        <p class="section-subtitle">当创业流程被压缩、串联并复用之后，个人不只是更高效，而是拥有了新的生产力边界。</p>
+        <div class="value-grid" style="margin-top: 28px;">
+          <article class="metric">
+            <strong>更快验证</strong>
+            <p>把“灵感不错”快速推进到“有原型、有页面、能对外链接”的可验证状态，缩短想法停留在脑中的时间。</p>
+          </article>
+          <article class="metric">
+            <strong>更低摩擦</strong>
+            <p>把产品、设计、部署、内容、推广拆开的职业工序重新压缩，让一个人也能持续跑完整闭环。</p>
+          </article>
+          <article class="metric">
+            <strong>更可复制</strong>
+            <p>每次做项目都不是从头来，而是在积累一条越来越顺手的创业流水线，形成真正的项目量产能力。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="closing">
+      <div class="container footer-grid">
+        <div>
+          <div class="eyebrow">Closing Note</div>
+          <h2 class="section-title">如果说过去 AI 让个人更像一个能干的自由职业者，那么 ClawFounder 想做的，是让个人第一次像一家会运转的公司。</h2>
+          <p class="section-subtitle">
+            它不是在炫耀 AI 能做多少事，而是在回答一个更现实的问题：<span class="accent">当 AI 已经足够能动，一个普通人怎样把这种能动性真正转化为稳定、可复用、能带来实际产出的创业能力？</span>
+          </p>
+        </div>
+        <div class="footer-card">
+          <h3 style="margin-top: 0; font-size: 24px;">项目提交建议</h3>
+          <ul>
+            <li>标题：<strong>ClawFounder｜会创业的龙虾：把一个人的创业流程编译成 AI 流水线</strong></li>
+            <li>一句话：输入一个点子，它能完成方案定义、原型开发、品牌包装、网站上线、内容推广和阶段汇报。</li>
+            <li>视频重点：只演一条完整闭环，不演功能大全。</li>
+            <li>海报核心文案：<strong>从 idea 到增长，一个人也能跑完整家公司。</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
