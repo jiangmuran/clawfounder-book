@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ClawFounder｜AI 创业流水线</title>
-  <meta name="description" content="ClawFounder 是一套把 idea、开发、上线、增长与手机验证码接入串成闭环的 AI 创业流水线。" />
+  <title>ClawFounder｜面向 OPC 的 AI 创业流水线</title>
+  <meta name="description" content="ClawFounder 是一套面向 OPC（One-Person Company）的 AI 创业流水线，用于把点子、原型、上线、推广与手机短信/扫码登录接入收敛成统一闭环。" />
   <style>
     :root {
-      --bg: #f4f6fb;
+      --bg: #f5f7fb;
       --paper: #ffffff;
-      --paper-2: #f8faff;
-      --ink: #162033;
-      --muted: #62718a;
-      --line: #dbe4f0;
-      --brand: #4f7cff;
-      --brand-2: #7d5cff;
-      --teal: #24c8a5;
-      --gold: #ffbe4d;
-      --danger: #ff6f7d;
-      --shadow: 0 20px 50px rgba(24, 36, 68, 0.10);
+      --paper-soft: #f8fbff;
+      --ink: #111827;
+      --ink-2: #1f2f46;
+      --muted: #68778f;
+      --line: #dbe4ef;
+      --line-soft: #e8eef5;
+      --brand: #4067f4;
+      --brand-2: #6a61ff;
+      --teal: #1fbea4;
+      --gold: #f7b74c;
+      --danger: #f46d7e;
+      --shadow: 0 18px 44px rgba(16, 24, 40, 0.08);
+      --shadow-strong: 0 28px 72px rgba(16, 24, 40, 0.10);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -26,32 +29,70 @@
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       color: var(--ink);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 0% 0%, rgba(79,124,255,0.08), transparent 25%),
-        radial-gradient(circle at 100% 10%, rgba(36,200,165,0.10), transparent 25%),
-        linear-gradient(180deg, #f6f8fd 0%, #eef3fa 100%);
-      line-height: 1.68;
+        radial-gradient(circle at 0% 0%, rgba(64,103,244,.08), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(31,190,164,.08), transparent 28%),
+        linear-gradient(180deg, #f7f9fd 0%, #eef3fa 100%);
+      line-height: 1.72;
     }
+
     a { color: inherit; text-decoration: none; }
     svg { display: block; max-width: 100%; }
     .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
     .section { padding: 72px 0; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(245,247,251,.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(219,228,239,.85);
+    }
+    .topbar-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(64,103,244,.14), rgba(31,190,164,.14));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .brand small { display: block; font-weight: 600; color: var(--muted); margin-top: 2px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted); font-weight: 600; }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 7px 12px;
+      padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid #d8e2ff;
-      background: rgba(79,124,255,0.06);
+      border: 1px solid #d6e1ff;
+      background: rgba(64,103,244,.06);
       color: var(--brand);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: .10em;
       text-transform: uppercase;
       margin-bottom: 16px;
     }
@@ -62,301 +103,209 @@
       border-radius: 999px;
       background: linear-gradient(135deg, var(--brand), var(--teal));
     }
+
     .title {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 4vw, 46px);
+      margin: 0 0 12px;
+      font-size: clamp(26px, 3.6vw, 40px);
       line-height: 1.12;
-      letter-spacing: -0.03em;
+      letter-spacing: -.03em;
     }
     .subtitle {
       margin: 0;
-      max-width: 760px;
+      max-width: 820px;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 15px;
     }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: rgba(244,246,251,0.82);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(219,228,240,0.75);
-    }
-    .topbar-inner {
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .brand-badge {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(79,124,255,0.14), rgba(36,200,165,0.14));
-      border: 1px solid #dce6f7;
-    }
-    .brand small {
-      display: block;
-      font-weight: 600;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .nav a:hover { color: var(--ink); }
-
-    .hero {
-      padding: 64px 0 44px;
-    }
+    .hero { padding: 56px 0 34px; }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.06fr 0.94fr;
-      gap: 28px;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 24px;
       align-items: center;
     }
     .hero h1 {
-      margin: 0 0 18px;
-      font-size: clamp(38px, 6vw, 68px);
+      margin: 0 0 16px;
+      font-size: clamp(34px, 5vw, 56px);
       line-height: .98;
-      letter-spacing: -0.05em;
+      letter-spacing: -.05em;
     }
-    .hero h1 .soft { color: #7a8aa6; display: block; }
+    .hero h1 .soft { display: block; color: #78879f; }
     .hero h1 .strong {
-      background: linear-gradient(135deg, #1c2435 10%, #3357d9 50%, #1fae92 100%);
+      background: linear-gradient(135deg, #111827 8%, #3f64ee 52%, #1d9d86 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
     .hero p {
-      margin: 0 0 22px;
-      font-size: 17px;
-      color: #425069;
+      margin: 0 0 20px;
+      font-size: 15px;
+      color: #44526a;
       max-width: 700px;
     }
     .hero p strong { color: var(--ink); }
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-    .button {
-      min-height: 48px;
-      padding: 0 18px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      border: 1px solid transparent;
-      transition: transform .18s ease;
-    }
-    .button:hover { transform: translateY(-1px); }
-    .button.primary {
-      background: linear-gradient(135deg, var(--brand), #6e66ff);
-      color: #fff;
-      box-shadow: 0 14px 34px rgba(79,124,255,0.22);
-    }
-    .button.secondary {
-      background: rgba(255,255,255,0.8);
-      border-color: var(--line);
-      color: var(--ink);
-    }
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
     .tag {
-      padding: 8px 12px;
+      padding: 8px 11px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,.78);
       border: 1px solid var(--line);
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
     }
 
     .card {
-      background: rgba(255,255,255,0.86);
-      border: 1px solid rgba(219,228,240,0.92);
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(219,228,239,.95);
       border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-strong);
     }
-    .hero-side {
-      padding: 18px;
-    }
+    .hero-side { padding: 18px; }
     .side-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
+      margin-bottom: 12px;
     }
     .side-badge {
-      padding: 7px 11px;
+      padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(36,200,165,0.08);
-      border: 1px solid #cfeee6;
-      color: #159679;
+      background: rgba(31,190,164,.08);
+      border: 1px solid #d2ece6;
+      color: #128971;
     }
-
     .hero-shot {
       border-radius: 22px;
       overflow: hidden;
-      background: linear-gradient(180deg, #edf3ff 0%, #fbfdff 100%);
-      border: 1px solid #e1e9f4;
-      margin-bottom: 14px;
+      border: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, #eef4ff, #fdfefe);
+      margin-bottom: 12px;
     }
     .stat-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
     .stat {
-      padding: 14px;
-      border-radius: 18px;
-      background: #f8fbff;
-      border: 1px solid #e4ecf5;
+      padding: 13px;
+      border-radius: 16px;
+      background: var(--paper-soft);
+      border: 1px solid var(--line-soft);
     }
-    .stat strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 22px;
-    }
-    .stat span { font-size: 12px; color: var(--muted); }
+    .stat strong { display: block; font-size: 18px; margin-bottom: 4px; }
+    .stat span { color: var(--muted); font-size: 11px; }
 
-    .grid-2,
-    .grid-3,
-    .grid-4,
-    .shots,
-    .closing-grid {
+    .grid-2, .grid-3, .grid-4, .timeline, .compare-grid, .numbers {
       display: grid;
       gap: 18px;
     }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-2, .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .closing-grid { grid-template-columns: 1.1fr .9fr; align-items: start; }
+    .numbers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-    .panel {
-      padding: 24px;
+    .panel, .number-card, .timeline-item {
+      padding: 22px;
       border-radius: var(--radius-lg);
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,.94);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
       min-height: 100%;
     }
-    .panel h3 {
-      margin: 0 0 10px;
-      font-size: 23px;
-      line-height: 1.2;
+    .panel h3, .timeline-item h3 {
+      margin: 0 0 9px;
+      font-size: 19px;
+      line-height: 1.24;
       letter-spacing: -.02em;
     }
-    .panel p { margin: 0; color: var(--muted); }
-    .panel ul { margin: 14px 0 0; padding-left: 18px; color: var(--muted); }
-    .panel li + li { margin-top: 7px; }
-
-    .quote {
-      padding: 26px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, #2f58f3 0%, #24c8a5 100%);
-      color: #fff;
-      box-shadow: 0 24px 60px rgba(52, 95, 208, 0.26);
-    }
-    .quote p {
-      margin: 0 0 12px;
-      font-size: 24px;
-      line-height: 1.42;
-      font-weight: 700;
-      letter-spacing: -.02em;
-    }
-    .quote small { color: rgba(255,255,255,.82); }
-
+    .panel p, .timeline-item p { margin: 0; color: var(--muted); font-size: 14px; }
+    .panel ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+    .panel li + li { margin-top: 6px; }
     .mini {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: .12em;
       color: var(--brand);
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
+    .quote {
+      padding: 24px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #3357f2 0%, #1fbea4 100%);
+      color: #fff;
+      box-shadow: 0 26px 60px rgba(51,87,242,.22);
+    }
+    .quote p {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 720;
+      letter-spacing: -.02em;
+    }
+    .quote small { color: rgba(255,255,255,.84); font-size: 13px; }
 
-    .flow-card {
-      padding: 20px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      min-height: 100%;
+    .timeline {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-top: 24px;
     }
-    .flow-card h3 { margin: 0 0 8px; font-size: 20px; }
-    .flow-card p { margin: 0 0 12px; color: var(--muted); }
-    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill {
-      padding: 7px 10px;
+    .timeline-item { position: relative; padding-top: 54px; }
+    .timeline-item::before {
+      content: attr(data-step);
+      position: absolute;
+      top: 20px;
+      left: 22px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
       border-radius: 999px;
-      background: #fff;
-      border: 1px solid #dde7f3;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff;
       font-size: 12px;
-      color: #4b5b75;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .mock {
-      border-radius: 22px;
-      overflow: hidden;
-      background: #fff;
+    .architecture {
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.94);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-strong);
+      overflow: hidden;
+      margin-top: 24px;
     }
 
-    .diff-good {
-      background: linear-gradient(180deg, rgba(36,200,165,0.09), #fff 52%);
-    }
-    .diff-risk {
-      background: linear-gradient(180deg, rgba(255,111,125,0.08), #fff 52%);
-    }
+    .compare-risk { background: linear-gradient(180deg, rgba(244,109,126,.08), #fff 60%); }
+    .compare-good { background: linear-gradient(180deg, rgba(31,190,164,.08), #fff 60%); }
+    .highlight { background: linear-gradient(180deg, rgba(64,103,244,.06), #fff 60%); }
 
-    .footer-note {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 18px;
+    .number-card strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+      letter-spacing: -.04em;
     }
+    .number-card p { margin: 0; color: var(--muted); font-size: 14px; }
 
-    @media (max-width: 1040px) {
-      .hero-grid,
-      .grid-2,
-      .grid-3,
-      .grid-4,
-      .shots,
-      .closing-grid,
-      .stat-row { grid-template-columns: 1fr; }
+    .footer-note { margin-top: 14px; font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 1080px) {
+      .hero-grid, .grid-2, .grid-3, .grid-4, .compare-grid, .numbers, .timeline, .stat-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 760px) {
-      .topbar-inner { min-height: 62px; }
+      .topbar-inner { min-height: 60px; }
       .nav { display: none; }
-      .hero { padding-top: 42px; }
       .section { padding: 56px 0; }
-      .panel, .flow-card, .quote, .hero-side { padding: 20px; }
-      .hero p, .subtitle { font-size: 15px; }
-      .hero h1 { font-size: clamp(34px, 13vw, 50px); }
+      .hero { padding-top: 40px; }
+      .title { font-size: clamp(24px, 8vw, 34px); }
+      .hero h1 { font-size: clamp(32px, 12vw, 44px); }
+      .hero p, .subtitle, .panel p, .panel ul, .number-card p { font-size: 14px; }
+      .panel, .number-card, .timeline-item, .quote, .hero-side, .architecture { padding: 18px; }
     }
   </style>
 </head>
@@ -368,29 +317,28 @@
           <svg width="22" height="22" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M14 35C14 22.85 23.85 13 36 13C44.28 13 51 19.72 51 28C51 35.18 45.18 41 38 41H24C18.48 41 14 36.52 14 31V35Z" stroke="url(#g1)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M23 43C23 50.18 28.82 56 36 56C45.39 56 53 48.39 53 39" stroke="url(#g2)" stroke-width="4.2" stroke-linecap="round"/>
-            <path d="M17 26L8 20" stroke="#24C8A5" stroke-width="4" stroke-linecap="round"/>
-            <path d="M14 33L5 33" stroke="#4F7CFF" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="37.5" cy="27.5" r="2.5" fill="#162033"/>
+            <path d="M17 26L8 20" stroke="#1FBEA4" stroke-width="4" stroke-linecap="round"/>
+            <path d="M14 33L5 33" stroke="#4067F4" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="37.5" cy="27.5" r="2.5" fill="#111827"/>
             <defs>
               <linearGradient id="g1" x1="14" y1="13" x2="52" y2="41" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#24C8A5"/>
-                <stop offset="1" stop-color="#4F7CFF"/>
+                <stop stop-color="#1FBEA4"/>
+                <stop offset="1" stop-color="#4067F4"/>
               </linearGradient>
               <linearGradient id="g2" x1="23" y1="39" x2="53" y2="56" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFBE4D"/>
-                <stop offset="1" stop-color="#24C8A5"/>
+                <stop stop-color="#F7B74C"/>
+                <stop offset="1" stop-color="#1FBEA4"/>
               </linearGradient>
             </defs>
           </svg>
         </span>
-        <span>ClawFounder<small>AI 创业流水线</small></span>
+        <span>ClawFounder<small>AI Pipeline for OPC</small></span>
       </a>
       <nav class="nav">
         <a href="#overview">概述</a>
-        <a href="#pipeline">流程</a>
-        <a href="#features">能力</a>
-        <a href="#cases">场景</a>
-        <a href="#difference">差异化</a>
+        <a href="#timeline">时间线</a>
+        <a href="#architecture">架构图</a>
+        <a href="#compare">对比</a>
       </nav>
     </div>
   </header>
@@ -399,76 +347,72 @@
     <section class="hero" id="overview">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">Project Brief · Solo Founder OS</div>
+          <div class="eyebrow">Project Overview · OPC Workflow System</div>
           <h1>
-            <span class="soft">不是做一个更强的助手，</span>
-            <span class="strong">而是把一个人的创业流程，编译成一条 AI 流水线。</span>
+            <span class="soft">面向 OPC 的不是“更强助手”，</span>
+            <span class="strong">而是一条真正能把项目推进到上线与增长的 AI 创业流水线。</span>
           </h1>
           <p>
-            <strong>ClawFounder</strong> 面向独立开发者、内容创作者和一人团队。
-            它把 <strong>想法讨论、白皮书生成、产品原型、GitHub 建仓、品牌视觉、网站上线、推广计划、内容产出、阶段汇报</strong> 串成一个可持续运行的闭环；
-            现在还新增了一个很关键的现实世界接口：<strong>通过 ADB 连接 root 过的手机，接收短信验证码，并完成扫码登录辅助</strong>。
+            <strong>ClawFounder</strong> 是一套面向 <strong>OPC（One-Person Company）</strong> 的工作流系统。
+            它将 <strong>点子讨论、白皮书生成、原型开发、GitHub 建仓、品牌包装、官网上线、内容推广、阶段汇报</strong> 收敛为统一闭环；
+            同时通过 <strong>ADB 接入 root 手机</strong>，补上 <strong>短信验证码接收与扫码登录辅助</strong> 这类现实世界中的关键断点。
           </p>
-          <div class="actions">
-            <a class="button primary" href="#pipeline">看完整流程</a>
-            <a class="button secondary" href="#shots">看产品视觉</a>
-          </div>
-          <div class="hero-tags">
+          <div class="tags">
             <span class="tag">Idea → Spec → Prototype</span>
-            <span class="tag">GitHub → Website → Domain</span>
-            <span class="tag">Content → Growth → Weekly Report</span>
-            <span class="tag">ADB Phone → SMS → QR Login</span>
+            <span class="tag">Repo → Website → Pages</span>
+            <span class="tag">Meeting → Article → Promotion</span>
+            <span class="tag">ADB → SMS → QR Login</span>
           </div>
         </div>
 
         <aside class="card hero-side">
           <div class="side-top">
-            <span class="side-badge">Product Snapshot</span>
-            <span>竞赛说明站 / v2</span>
+            <span class="side-badge">Judge View</span>
+            <span>Project Summary</span>
           </div>
           <div class="hero-shot">
-            <svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg">
-              <rect width="640" height="430" fill="#f4f8ff"/>
-              <rect x="28" y="28" width="584" height="374" rx="28" fill="#fff" stroke="#dfe8f3"/>
-              <rect x="54" y="52" width="532" height="44" rx="14" fill="#f7faff" stroke="#e4ebf5"/>
-              <circle cx="80" cy="74" r="8" fill="#ff8d7a"/>
-              <circle cx="104" cy="74" r="8" fill="#ffd166"/>
-              <circle cx="128" cy="74" r="8" fill="#24c8a5"/>
-              <rect x="156" y="62" width="248" height="22" rx="11" fill="#edf3ff"/>
-              <rect x="430" y="62" width="128" height="22" rx="11" fill="#e8f6f2"/>
+            <svg viewBox="0 0 700 410" xmlns="http://www.w3.org/2000/svg">
+              <rect width="700" height="410" fill="#f3f7ff"/>
+              <rect x="24" y="22" width="652" height="366" rx="28" fill="#ffffff" stroke="#e0e8f3"/>
+              <rect x="48" y="44" width="604" height="42" rx="14" fill="#f8fbff" stroke="#e6edf5"/>
+              <circle cx="74" cy="65" r="7" fill="#ff8b7b"/>
+              <circle cx="96" cy="65" r="7" fill="#ffcb5c"/>
+              <circle cx="118" cy="65" r="7" fill="#1fbea4"/>
+              <rect x="148" y="54" width="214" height="20" rx="10" fill="#edf3ff"/>
+              <rect x="522" y="54" width="100" height="20" rx="10" fill="#ebf8f4"/>
 
-              <rect x="54" y="118" width="230" height="244" rx="22" fill="#fbfdff" stroke="#e4ebf5"/>
-              <text x="78" y="154" fill="#162033" font-size="26" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ClawFounder</text>
-              <text x="78" y="184" fill="#62718a" font-size="14" font-family="Inter, PingFang SC, sans-serif">从 idea 到上线与增长的一人创业流水线</text>
-              <rect x="78" y="214" width="174" height="38" rx="19" fill="#4f7cff"/>
-              <text x="118" y="239" fill="#fff" font-size="14" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Start a Project</text>
-              <rect x="78" y="274" width="150" height="12" rx="6" fill="#e6edf7"/>
-              <rect x="78" y="296" width="132" height="12" rx="6" fill="#e6edf7"/>
-              <rect x="78" y="318" width="160" height="12" rx="6" fill="#e6edf7"/>
+              <rect x="48" y="112" width="228" height="230" rx="22" fill="#fbfdff" stroke="#e2eaf4"/>
+              <text x="72" y="150" fill="#111827" font-size="26" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ClawFounder</text>
+              <text x="72" y="176" fill="#68778f" font-size="14" font-family="Inter, PingFang SC, sans-serif">AI Pipeline for OPC</text>
+              <rect x="72" y="208" width="160" height="38" rx="19" fill="#4067f4"/>
+              <text x="109" y="232" fill="#fff" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">New Project Flow</text>
+              <rect x="72" y="274" width="152" height="10" rx="5" fill="#e5ebf4"/>
+              <rect x="72" y="294" width="130" height="10" rx="5" fill="#eef2f8"/>
+              <rect x="72" y="314" width="166" height="10" rx="5" fill="#e5ebf4"/>
 
-              <rect x="310" y="118" width="276" height="110" rx="22" fill="#f8fbff" stroke="#e4ebf5"/>
-              <text x="334" y="152" fill="#4f7cff" font-size="13" font-weight="700" font-family="Inter, PingFang SC, sans-serif">PIPELINE</text>
-              <text x="334" y="182" fill="#162033" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">从灵感到产品资产</text>
-              <rect x="334" y="198" width="210" height="10" rx="5" fill="#e4ebf5"/>
-              <rect x="334" y="214" width="170" height="10" rx="5" fill="#edf2f8"/>
+              <rect x="302" y="112" width="326" height="96" rx="22" fill="#f9fbff" stroke="#e2eaf4"/>
+              <text x="326" y="144" fill="#4067f4" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">PIPELINE</text>
+              <text x="326" y="172" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">从灵感到可访问链接</text>
+              <rect x="326" y="186" width="210" height="9" rx="4.5" fill="#e4ebf5"/>
 
-              <rect x="310" y="252" width="128" height="110" rx="22" fill="#f8fbff" stroke="#e4ebf5"/>
-              <text x="330" y="286" fill="#162033" font-size="17" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Prototype</text>
-              <rect x="330" y="304" width="78" height="8" rx="4" fill="#dde7f3"/>
-              <rect x="330" y="320" width="60" height="8" rx="4" fill="#e9eef7"/>
-              <rect x="330" y="340" width="88" height="10" rx="5" fill="#4f7cff"/>
+              <rect x="302" y="228" width="150" height="114" rx="22" fill="#f9fbff" stroke="#e2eaf4"/>
+              <text x="324" y="262" fill="#111827" font-size="18" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Content Loop</text>
+              <rect x="324" y="284" width="80" height="8" rx="4" fill="#dde7f3"/>
+              <rect x="324" y="300" width="62" height="8" rx="4" fill="#ebeff7"/>
+              <rect x="324" y="320" width="94" height="10" rx="5" fill="#1fbea4"/>
 
-              <rect x="458" y="252" width="128" height="110" rx="22" fill="#f8fbff" stroke="#e4ebf5"/>
-              <text x="478" y="286" fill="#162033" font-size="17" font-weight="700" font-family="Inter, PingFang SC, sans-serif">SMS / QR</text>
-              <rect x="478" y="304" width="78" height="8" rx="4" fill="#dde7f3"/>
-              <rect x="478" y="320" width="68" height="8" rx="4" fill="#e9eef7"/>
-              <rect x="478" y="340" width="88" height="10" rx="5" fill="#24c8a5"/>
+              <rect x="478" y="228" width="150" height="114" rx="22" fill="#f9fbff" stroke="#e2eaf4"/>
+              <text x="500" y="262" fill="#111827" font-size="18" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Phone Bridge</text>
+              <rect x="500" y="284" width="80" height="8" rx="4" fill="#dde7f3"/>
+              <rect x="500" y="300" width="64" height="8" rx="4" fill="#ebeff7"/>
+              <rect x="500" y="320" width="98" height="10" rx="5" fill="#f7b74c"/>
             </svg>
           </div>
           <div class="stat-row">
-            <div class="stat"><strong>1</strong><span>条完整创业闭环</span></div>
-            <div class="stat"><strong>5</strong><span>类关键能力模块</span></div>
-            <div class="stat"><strong>2</strong><span>现实输入：短信与扫码</span></div>
+            <div class="stat"><strong>5</strong><span>流程阶段</span></div>
+            <div class="stat"><strong>3</strong><span>关键输出层</span></div>
+            <div class="stat"><strong>2</strong><span>现实接入口</span></div>
+            <div class="stat"><strong>1</strong><span>统一闭环</span></div>
           </div>
         </aside>
       </div>
@@ -477,219 +421,147 @@
     <section class="section">
       <div class="container grid-2">
         <div class="panel">
-          <div class="mini">Problem</div>
-          <h3>大多数 AI 工具解决的是“某个任务”，不是“项目为什么总是推不下去”。</h3>
-          <p>独立开发者最常见的问题不是不会做，而是流程断裂：点子在聊天里，原型在代码工具里，品牌在设计工具里，网站在部署平台里，推广又在内容平台里。每一段都能做，但没人接棒。</p>
+          <div class="mini">Problem Statement</div>
+          <h3>项目真正要解决的，不是“单个任务能否完成”，而是“项目生命周期能否持续推进”。</h3>
+          <p>传统 AI 生产力工具通常停留在功能层：写一篇文章、做一个页面、查一份资料。ClawFounder 针对的是更上层的系统性问题：OPC 如何在没有完整团队的情况下，仍然持续完成从产品定义、原型开发、上线部署到内容增长的完整闭环。</p>
         </div>
         <div class="quote">
-          <p>我给 OpenClaw 的，不只是更多工具，而是一个更清晰的职业角色：它要像一个会推动项目往前走的创业搭档。</p>
-          <small>那篇《OpenClaw 爆火之后，我最先担心的不是它不够强，而是它已经太能动了》更像这个作品的世界观案例，而不是标题本身。</small>
+          <p>本项目将 agent 的能动性从“会完成任务”推进到“会推进项目状态”，并通过手机桥接补齐验证码与扫码登录等现实世界接口。</p>
+          <small>关键词：OPC、项目闭环、手机桥接、内容飞轮、可持续推进。</small>
         </div>
       </div>
     </section>
 
-    <section class="section" id="shots">
+    <section class="section" id="timeline">
       <div class="container">
-        <div class="eyebrow">Visual Overview</div>
-        <h2 class="title">先让评委一眼看懂：这到底是个什么系统。</h2>
-        <p class="subtitle">下面三张“产品图”分别对应它的三个核心界面：项目流水线、内容提纯、手机验证码/扫码接入。</p>
-        <div class="shots" style="margin-top: 24px;">
-          <div class="mock">
-            <svg viewBox="0 0 380 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="380" height="280" fill="#ffffff"/>
-              <rect x="18" y="18" width="344" height="244" rx="22" fill="#fbfdff" stroke="#dfe7f2"/>
-              <text x="40" y="52" font-size="18" font-weight="700" fill="#162033" font-family="Inter, PingFang SC, sans-serif">项目流水线面板</text>
-              <rect x="40" y="74" width="112" height="30" rx="15" fill="#edf3ff"/>
-              <text x="65" y="94" font-size="12" font-weight="700" fill="#4f7cff" font-family="Inter, PingFang SC, sans-serif">Active Project</text>
-              <rect x="40" y="122" width="70" height="90" rx="18" fill="#f2f7ff" stroke="#e0e8f4"/>
-              <rect x="126" y="122" width="70" height="90" rx="18" fill="#f2f7ff" stroke="#e0e8f4"/>
-              <rect x="212" y="122" width="70" height="90" rx="18" fill="#f2f7ff" stroke="#e0e8f4"/>
-              <rect x="298" y="122" width="44" height="90" rx="18" fill="#eaf7f4" stroke="#d6efe8"/>
-              <text x="56" y="154" font-size="12" fill="#4b5b75" font-family="Inter, PingFang SC, sans-serif">Idea</text>
-              <text x="137" y="154" font-size="12" fill="#4b5b75" font-family="Inter, PingFang SC, sans-serif">Spec</text>
-              <text x="223" y="154" font-size="12" fill="#4b5b75" font-family="Inter, PingFang SC, sans-serif">Build</text>
-              <text x="303" y="154" font-size="12" fill="#159679" font-family="Inter, PingFang SC, sans-serif">Live</text>
-              <path d="M110 167H126" stroke="#4f7cff" stroke-width="3" stroke-linecap="round"/>
-              <path d="M196 167H212" stroke="#4f7cff" stroke-width="3" stroke-linecap="round"/>
-              <path d="M282 167H298" stroke="#24c8a5" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="mock">
-            <svg viewBox="0 0 380 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="380" height="280" fill="#ffffff"/>
-              <rect x="18" y="18" width="344" height="244" rx="22" fill="#fbfdff" stroke="#dfe7f2"/>
-              <text x="40" y="52" font-size="18" font-weight="700" fill="#162033" font-family="Inter, PingFang SC, sans-serif">会议内容提纯器</text>
-              <rect x="40" y="74" width="136" height="28" rx="14" fill="#fff3db"/>
-              <text x="60" y="93" font-size="12" font-weight="700" fill="#9b6a00" font-family="Inter, PingFang SC, sans-serif">Audio / Notes Intake</text>
-              <rect x="40" y="122" width="300" height="20" rx="10" fill="#edf2f8"/>
-              <rect x="40" y="154" width="250" height="12" rx="6" fill="#e5ebf3"/>
-              <rect x="40" y="176" width="278" height="12" rx="6" fill="#e5ebf3"/>
-              <rect x="40" y="198" width="156" height="12" rx="6" fill="#e5ebf3"/>
-              <rect x="230" y="188" width="110" height="34" rx="17" fill="#4f7cff"/>
-              <text x="253" y="210" font-size="12" font-weight="700" fill="#fff" font-family="Inter, PingFang SC, sans-serif">Generate</text>
-            </svg>
-          </div>
-          <div class="mock">
-            <svg viewBox="0 0 380 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="380" height="280" fill="#ffffff"/>
-              <rect x="18" y="18" width="344" height="244" rx="22" fill="#fbfdff" stroke="#dfe7f2"/>
-              <text x="40" y="52" font-size="18" font-weight="700" fill="#162033" font-family="Inter, PingFang SC, sans-serif">手机接入面板</text>
-              <rect x="40" y="78" width="132" height="22" rx="11" fill="#eaf7f4"/>
-              <text x="61" y="93" font-size="12" font-weight="700" fill="#159679" font-family="Inter, PingFang SC, sans-serif">ADB Root Device</text>
-              <rect x="48" y="122" width="88" height="118" rx="18" fill="#172034"/>
-              <rect x="56" y="132" width="72" height="92" rx="12" fill="#f1f6ff"/>
-              <rect x="164" y="126" width="166" height="44" rx="14" fill="#f5f8fd" stroke="#e1e9f4"/>
-              <text x="182" y="152" font-size="12" fill="#4b5b75" font-family="Inter, PingFang SC, sans-serif">SMS OTP received</text>
-              <rect x="164" y="182" width="166" height="44" rx="14" fill="#f5f8fd" stroke="#e1e9f4"/>
-              <text x="182" y="208" font-size="12" fill="#4b5b75" font-family="Inter, PingFang SC, sans-serif">QR login helper</text>
-            </svg>
-          </div>
+        <div class="eyebrow">Project Timeline</div>
+        <h2 class="title">时间线视角：ClawFounder 如何把一个点子稳定推进到“可访问、可传播、可复盘”的状态。</h2>
+        <p class="subtitle">每一阶段都有明确输入、明确产物、明确接棒方，避免流程在中间环节失速。</p>
+        <div class="timeline">
+          <article class="timeline-item" data-step="1">
+            <h3>Idea Intake</h3>
+            <p>输入创意、问题定义与目标用户，先完成方向澄清，而不是立即进入开发。</p>
+          </article>
+          <article class="timeline-item" data-step="2">
+            <h3>Spec Generation</h3>
+            <p>生成白皮书、MVP 范围、用户故事和执行清单，建立可落地的产品规格。</p>
+          </article>
+          <article class="timeline-item" data-step="3">
+            <h3>Prototype & Repo</h3>
+            <p>将规格交给编码代理产出原型，并在 GitHub 中建立可迭代的项目资产。</p>
+          </article>
+          <article class="timeline-item" data-step="4">
+            <h3>Launch Assets</h3>
+            <p>补齐品牌、官网、说明书与访问入口，使项目从“能跑”升级为“能展示”。</p>
+          </article>
+          <article class="timeline-item" data-step="5">
+            <h3>Growth & Feedback</h3>
+            <p>生成内容、推广和阶段汇报，并将外部反馈反哺下一轮项目选择与迭代。</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="pipeline">
+    <section class="section" id="architecture">
       <div class="container">
-        <div class="eyebrow">Pipeline</div>
-        <h2 class="title">完整流程不是“会很多工具”，而是“每一步都知道下一步要接给谁”。</h2>
-        <p class="subtitle">这套系统最重要的不是单点能力，而是项目状态推进：一个点子如何穿过定义、原型、上线、传播、复盘，最终变成一个真实的网络资产。</p>
-        <div class="grid-4" style="margin-top: 24px;">
-          <div class="flow-card">
-            <div class="mini">01</div>
-            <h3>Idea Forge</h3>
-            <p>和 Gemini 讨论点子，生白皮书、MVP 范围和价值主张。</p>
-            <div class="pill-row"><span class="pill">Idea</span><span class="pill">Whitepaper</span><span class="pill">MVP</span></div>
-          </div>
-          <div class="flow-card">
-            <div class="mini">02</div>
-            <h3>Build Relay</h3>
-            <p>把方案送到 OpenCode 等编码代理，快速做出原型并建 GitHub 仓库。</p>
-            <div class="pill-row"><span class="pill">Prototype</span><span class="pill">GitHub</span><span class="pill">Handoff</span></div>
-          </div>
-          <div class="flow-card">
-            <div class="mini">03</div>
-            <h3>Launch Engine</h3>
-            <p>补 Logo、官网、项目说明页，部署 GitHub Pages，再接 Cloudflare 域名。</p>
-            <div class="pill-row"><span class="pill">Logo</span><span class="pill">Website</span><span class="pill">Domain</span></div>
-          </div>
-          <div class="flow-card">
-            <div class="mini">04</div>
-            <h3>Growth Loop</h3>
-            <p>生成推广计划、公众号草稿、小红书软文、GitHub issue 外联与阶段汇报。</p>
-            <div class="pill-row"><span class="pill">Content</span><span class="pill">Promotion</span><span class="pill">Report</span></div>
-          </div>
+        <div class="eyebrow">System Architecture</div>
+        <h2 class="title">架构图视角：系统由三层构成——编排层、现实接口层、输出层。</h2>
+        <p class="subtitle">其中最关键的扩展在于“现实接口层”，它通过 ADB + root 手机把短信验证码和扫码登录接入统一流程。</p>
+        <div class="architecture">
+          <svg viewBox="0 0 1140 430" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1140" height="430" rx="28" fill="#fbfdff"/>
+            <rect x="36" y="90" width="180" height="250" rx="24" fill="#fff" stroke="#dfe7f2"/>
+            <text x="62" y="128" fill="#4067f4" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">INPUT LAYER</text>
+            <text x="62" y="160" fill="#111827" font-size="24" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Idea / Notes</text>
+            <rect x="62" y="188" width="118" height="10" rx="5" fill="#e4ebf5"/>
+            <rect x="62" y="208" width="96" height="10" rx="5" fill="#edf2f8"/>
+            <rect x="62" y="242" width="104" height="34" rx="17" fill="#4067f4"/>
+            <text x="86" y="264" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Start</text>
+
+            <rect x="276" y="42" width="350" height="344" rx="28" fill="#fff" stroke="#dfe7f2"/>
+            <text x="306" y="82" fill="#4067f4" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ORCHESTRATION LAYER</text>
+            <rect x="306" y="110" width="290" height="58" rx="18" fill="#f7faff" stroke="#e5ebf5"/>
+            <text x="332" y="145" fill="#111827" font-size="19" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Idea Forge / Spec Generation</text>
+            <rect x="306" y="188" width="290" height="58" rx="18" fill="#f7faff" stroke="#e5ebf5"/>
+            <text x="332" y="223" fill="#111827" font-size="19" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Prototype / Repo / Launch</text>
+            <rect x="306" y="266" width="290" height="58" rx="18" fill="#f7faff" stroke="#e5ebf5"/>
+            <text x="332" y="301" fill="#111827" font-size="19" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Content Loop / Weekly Report</text>
+
+            <rect x="686" y="42" width="200" height="344" rx="28" fill="#fff" stroke="#dfe7f2"/>
+            <text x="714" y="82" fill="#1fbea4" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">REAL-WORLD INTERFACE</text>
+            <rect x="738" y="118" width="96" height="176" rx="24" fill="#152136"/>
+            <rect x="748" y="132" width="76" height="114" rx="12" fill="#f0f5ff"/>
+            <rect x="716" y="314" width="140" height="30" rx="15" fill="#ebf8f5"/>
+            <text x="741" y="333" fill="#128971" font-size="11" font-weight="700" font-family="Inter, PingFang SC, sans-serif">ADB / SMS / QR Login</text>
+
+            <rect x="946" y="90" width="160" height="250" rx="24" fill="#fff" stroke="#dfe7f2"/>
+            <text x="972" y="128" fill="#6a61ff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">OUTPUT LAYER</text>
+            <text x="972" y="160" fill="#111827" font-size="22" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Repo / Site</text>
+            <text x="972" y="188" fill="#111827" font-size="22" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Content / Report</text>
+            <rect x="972" y="222" width="104" height="10" rx="5" fill="#e4ebf5"/>
+            <rect x="972" y="242" width="122" height="10" rx="5" fill="#edf2f8"/>
+            <rect x="972" y="276" width="94" height="34" rx="17" fill="#6a61ff"/>
+            <text x="995" y="298" fill="#fff" font-size="12" font-weight="700" font-family="Inter, PingFang SC, sans-serif">Deliver</text>
+
+            <path d="M216 214H276" stroke="#4067f4" stroke-width="4" stroke-linecap="round"/>
+            <path d="M626 214H686" stroke="#1fbea4" stroke-width="4" stroke-linecap="round"/>
+            <path d="M886 214H946" stroke="#6a61ff" stroke-width="4" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
     </section>
 
-    <section class="section" id="features">
+    <section class="section">
       <div class="container">
-        <div class="eyebrow">Capabilities</div>
-        <h2 class="title">这次新增的关键点，是把它从“软件里的 agent”推进到了“能接现实登录流程的操作系统”。</h2>
-        <p class="subtitle">你刚补充的 ADB 能力很关键，因为它让很多真实世界里卡住自动化的地方——验证码、短信登录、扫码确认——第一次进入同一条流水线。</p>
+        <div class="eyebrow">Capability Matrix</div>
+        <h2 class="title">能力矩阵视角：系统并不是“多做一点”，而是把 OPC 最关键的五类摩擦压缩掉。</h2>
+        <p class="subtitle">重点在于流程打通，而不是局部优化。</p>
         <div class="grid-3" style="margin-top: 24px;">
-          <div class="panel">
-            <div class="mini">A</div>
-            <h3>产品孵化</h3>
-            <p>从点子、产品定义到代码原型和 GitHub 仓库，一条链打通。</p>
-            <ul>
-              <li>讨论需求与定位</li>
-              <li>生成白皮书和产品说明</li>
-              <li>快速得到可运行原型</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <div class="mini">B</div>
-            <h3>品牌与发布</h3>
-            <p>把项目做成可对外展示、可被理解、可开始传播的资产。</p>
-            <ul>
-              <li>Logo 与站点视觉</li>
-              <li>GitHub Pages 与域名</li>
-              <li>项目说明书与海报素材</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <div class="mini">C</div>
-            <h3>内容增长</h3>
-            <p>吸收外界输入，把录音、纪要和观察变成文章与脚本。</p>
-            <ul>
-              <li>会议纪要提纯</li>
-              <li>公众号与自媒体内容</li>
-              <li>推广节奏与复盘汇报</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <div class="mini">D</div>
-            <h3>手机短信接入</h3>
-            <p>通过 ADB 连接 root 手机，读取短信验证码，进入真实登录链路。</p>
-            <ul>
-              <li>接收 OTP / 验证码</li>
-              <li>减少人工切设备操作</li>
-              <li>适合账号注册与登录流</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <div class="mini">E</div>
-            <h3>扫码登录辅助</h3>
-            <p>把二维码登录从“卡在手机上”变成流水线可调度的一环。</p>
-            <ul>
-              <li>识别需要扫码确认的步骤</li>
-              <li>通过手机侧完成确认</li>
-              <li>补足很多平台的现实约束</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <div class="mini">F</div>
-            <h3>持续汇报</h3>
-            <p>不是做完就没了，而是定期告诉主人：现在项目推进到哪了。</p>
-            <ul>
-              <li>阶段状态推送</li>
-              <li>周报 / 复盘摘要</li>
-              <li>下一步建议</li>
-            </ul>
-          </div>
+          <div class="panel"><div class="mini">A</div><h3>产品孵化</h3><p>完成从点子、产品定义到原型和仓库的首轮成型。</p><ul><li>需求讨论与价值判断</li><li>白皮书与 MVP 范围</li><li>原型代码与 GitHub</li></ul></div>
+          <div class="panel"><div class="mini">B</div><h3>上线资产</h3><p>把项目包装成可以公开访问、展示与评审的网络资产。</p><ul><li>Logo 与项目视觉</li><li>说明书站与官网</li><li>GitHub Pages 与域名</li></ul></div>
+          <div class="panel"><div class="mini">C</div><h3>内容飞轮</h3><p>把会议、论坛、日常信息转化为可传播的内容与后续选题。</p><ul><li>会议纪要提纯</li><li>公众号 / 小红书 / 脚本</li><li>推广计划与复盘汇报</li></ul></div>
+          <div class="panel highlight"><div class="mini">D</div><h3>短信验证码接入</h3><p>通过 ADB 连接 root 手机，读取验证码，补足真实登录链路。</p><ul><li>OTP 自动接收</li><li>减少人工切换设备</li><li>适合注册与登录流程</li></ul></div>
+          <div class="panel highlight"><div class="mini">E</div><h3>扫码登录辅助</h3><p>将扫码确认纳入统一编排，而不是让自动化在此中断。</p><ul><li>适配需要手机确认的平台</li><li>降低账号接入摩擦</li><li>补足现实世界接口</li></ul></div>
+          <div class="panel"><div class="mini">F</div><h3>阶段汇报</h3><p>持续汇报项目状态、阶段结果与下一步建议，形成闭环管理。</p><ul><li>项目状态推送</li><li>周报 / 复盘摘要</li><li>下一轮优先级建议</li></ul></div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="cases">
+    <section class="section">
       <div class="container">
-        <div class="eyebrow">Scenarios</div>
-        <h2 class="title">最适合拿去讲故事的，不是抽象能力，而是两个真实场景。</h2>
-        <div class="grid-2" style="margin-top: 24px;">
-          <div class="panel">
-            <h3>场景一：把一个点子做成真实网站</h3>
-            <p>你有一个新 idea，先和 Gemini 讨论，产出白皮书；再把规范文档交给编码代理做出原型；接着 OpenClaw 自动补齐 Logo、项目说明页、官网和 GitHub Pages；最后生成推广计划，并把阶段进度汇报给主人。</p>
-          </div>
-          <div class="panel">
-            <h3>场景二：某个平台登录卡在验证码/扫码</h3>
-            <p>传统 agent 到这里经常断掉。现在它可以通过 ADB 接入 root 手机，接收短信验证码，并辅助处理扫码确认，把现实世界的登录动作也接进整条流水线里。</p>
-          </div>
+        <div class="eyebrow">Evaluation Perspective</div>
+        <h2 class="title">从评审视角看，本项目的核心价值不是“会做很多事”，而是“会把高频创业摩擦系统性压缩”。</h2>
+        <div class="numbers" style="margin-top: 24px;">
+          <div class="number-card"><strong>更快验证</strong><p>显著缩短点子到原型、原型到公开链接的路径，使项目更快进入真实反馈阶段。</p></div>
+          <div class="number-card"><strong>更少断点</strong><p>将产品、上线、内容与登录现实整合到同一链路中，减少跨工具、跨设备和跨平台切换。</p></div>
+          <div class="number-card"><strong>更强复用</strong><p>每次运行都在积累下一次仍可复用的 OPC 创业流水线，而非一次性手工操作。</p></div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="difference">
+    <section class="section" id="compare">
       <div class="container">
-        <div class="eyebrow">Difference</div>
-        <h2 class="title">这不是“OpenClaw 官方能力合集”，而是你围绕“一个人如何持续做项目”重新收敛出的职业化工作流。</h2>
-        <div class="grid-2" style="margin-top: 24px;">
-          <div class="panel diff-risk">
-            <h3>如果只是普通 agent 展示</h3>
+        <div class="eyebrow">Comparison</div>
+        <h2 class="title">对比视角：ClawFounder 与普通 Agent 展示的差异，不在“能力多少”，而在“系统是否完整”。</h2>
+        <div class="compare-grid" style="margin-top: 24px;">
+          <div class="panel compare-risk">
+            <div class="mini">Conventional Agent Demo</div>
+            <h3>常规做法</h3>
             <ul>
-              <li>会查资料、会写代码、会发消息</li>
-              <li>看起来功能很多，但不一定能形成完整闭环</li>
-              <li>遇到验证码、扫码、登录确认等现实约束容易卡死</li>
-              <li>更像工具能力展示，而不是项目系统</li>
+              <li>强调查资料、写代码、发消息等单点能力</li>
+              <li>多个功能并列展示，但不一定形成可持续项目闭环</li>
+              <li>遇到验证码、扫码登录、平台确认时容易中断</li>
+              <li>更像工具能力集合，而不是稳定系统</li>
             </ul>
           </div>
-          <div class="panel diff-good">
-            <h3>ClawFounder 的独特点</h3>
+          <div class="panel compare-good">
+            <div class="mini">ClawFounder</div>
+            <h3>系统优势</h3>
             <ul>
-              <li>目标明确：服务“独立创业/一人公司”而不是通用聊天</li>
-              <li>流程明确：从 idea 到线上资产再到增长动作</li>
-              <li>接口更深：把手机短信和扫码登录也纳入调度范围</li>
-              <li>叙事更完整：产品、品牌、内容、运营都是同一套系统的一部分</li>
+              <li>聚焦 OPC 场景，而非通用聊天或泛任务执行</li>
+              <li>围绕项目生命周期，而非局部任务效率</li>
+              <li>通过手机桥接补上真实世界接口，减少关键断点</li>
+              <li>将产品、内容、上线与反馈统一成一条可持续运行的流水线</li>
             </ul>
           </div>
         </div>
@@ -697,22 +569,17 @@
     </section>
 
     <section class="section">
-      <div class="container closing-grid">
+      <div class="container grid-2">
         <div>
-          <div class="eyebrow">Closing</div>
-          <h2 class="title">它不是替你完成某一个动作，而是替你维持“一个项目持续向前”的状态。</h2>
-          <p class="subtitle">如果 OpenClaw 代表的是 agent 的能动性，那么 ClawFounder 想证明的是：这种能动性一旦被收敛成职业化流程，一个人也能拥有接近小团队的创业节奏。</p>
-          <p class="footer-note">你上面那篇文章，适合在答辩里作为“世界观背景案例”引用，说明为什么我们开始关心 AI 的边界、接棒与治理；但产品本身要讲清楚它到底帮谁、在哪些流程里真正省掉了人力成本。</p>
+          <div class="eyebrow">Conclusion</div>
+          <h2 class="title">ClawFounder 的目标，不是替代完整团队，而是让 OPC 首次拥有接近小团队的推进能力。</h2>
+          <p class="subtitle">本项目的创新点并不在某个单独的模型能力，而在于将 agent 的编排能力、内容生产能力、项目推进能力与手机侧现实接口整合为统一系统。</p>
+          <p class="footer-note">文章《OpenClaw 爆火之后，我最先担心的不是它不够强，而是它已经太能动了》更适合作为项目背景材料，用来解释为何需要更严肃地设计 agent 的边界、接棒与现实接口，而不是直接作为本页正文。</p>
         </div>
         <div class="panel">
-          <div class="mini">Submission Hint</div>
-          <h3>建议报名标题</h3>
-          <p><strong>ClawFounder｜把一个人的创业流程编译成 AI 流水线</strong></p>
-          <ul>
-            <li>亮点一：从 idea 到原型、GitHub、官网和域名</li>
-            <li>亮点二：从录音/纪要到文章、脚本和推广素材</li>
-            <li>亮点三：通过 ADB 接入 root 手机，实现短信接收与扫码登录辅助</li>
-          </ul>
+          <div class="mini">Key Message</div>
+          <h3>一句话总结</h3>
+          <p>ClawFounder 是一套面向 OPC 的 AI 创业流水线：它把 idea、白皮书、原型、GitHub、官网、推广与手机验证码 / 扫码登录接入收敛为一个可持续推进的项目闭环。</p>
         </div>
       </div>
     </section>
