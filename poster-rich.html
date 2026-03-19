@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClawFounder Poster Rich</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #050b16;
+      color: #f6fbff;
+    }
+    .poster {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 0%, rgba(90,120,255,.16), transparent 35%), #07101d;
+      isolation: isolate;
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(6,12,24,.38), rgba(6,12,24,.58)),
+        url('./poster-nano-pro.png') center center / cover no-repeat;
+      transform: scale(1.02);
+      filter: saturate(1.08) contrast(1.04);
+    }
+    .mesh, .mesh2 {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(90px);
+      opacity: .9;
+      pointer-events: none;
+    }
+    .mesh {
+      width: 320px; height: 320px;
+      left: -60px; top: 120px;
+      background: rgba(105,135,255,.24);
+    }
+    .mesh2 {
+      width: 360px; height: 360px;
+      right: -80px; bottom: 260px;
+      background: rgba(84,220,199,.16);
+    }
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(180deg, rgba(255,255,255,.25), transparent 55%);
+      opacity: .22;
+    }
+    .frame {
+      position: absolute;
+      inset: 26px;
+      border-radius: 42px;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      pointer-events: none;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 62px 58px 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo {
+      width: 62px; height: 62px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(135deg, rgba(114,161,255,.22), rgba(84,220,199,.18));
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 32px rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+    }
+    .brand h2 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+    .brand p {
+      margin: 5px 0 0;
+      font-size: 16px;
+      color: rgba(240,247,255,.72);
+    }
+    .badge {
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(133,165,255,.26);
+      background: rgba(80,112,208,.12);
+      backdrop-filter: blur(14px);
+      color: #dbe7ff;
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 20px;
+      align-items: end;
+      margin-top: 20px;
+    }
+    .headline {
+      max-width: 560px;
+    }
+    .headline .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #9fc0ff;
+      font-size: 15px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .headline h1 {
+      margin: 0;
+      font-size: 98px;
+      line-height: .95;
+      letter-spacing: -.07em;
+    }
+    .headline h1 .soft { display: block; color: rgba(255,255,255,.56); }
+    .headline h1 .strong {
+      display: block;
+      background: linear-gradient(135deg, #ffffff 0%, #d8e7ff 42%, #8eb8ff 75%, #78e3d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .headline .lead {
+      margin-top: 24px;
+      max-width: 560px;
+      font-size: 27px;
+      line-height: 1.72;
+      color: rgba(236,244,255,.78);
+    }
+    .headline .lead strong { color: #fff; }
+
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .glass {
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(13,23,43,.64), rgba(10,18,34,.48));
+      box-shadow: 0 24px 64px rgba(0,0,0,.22);
+      backdrop-filter: blur(18px);
+    }
+    .quote {
+      padding: 22px 22px 20px;
+    }
+    .quote .small {
+      font-size: 13px;
+      color: #9ec2ff;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .quote h3 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.08;
+      letter-spacing: -.05em;
+    }
+    .quote p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(232,240,255,.72);
+    }
+    .flow {
+      padding: 18px;
+    }
+    .flow .small {
+      font-size: 13px;
+      color: #9ec2ff;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .flow-rows {
+      display: grid;
+      gap: 10px;
+    }
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: #e8f0ff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(135deg, #7da7ff, #54dcc7);
+      flex: 0 0 auto;
+      box-shadow: 0 0 16px rgba(125,167,255,.55);
+    }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 26px;
+    }
+    .metric {
+      padding: 22px 22px 20px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 48px rgba(0,0,0,.18);
+    }
+    .metric .n {
+      font-size: 12px;
+      color: #9ec2ff;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .metric strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1.06;
+      letter-spacing: -.05em;
+      margin-bottom: 10px;
+    }
+    .metric p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.68;
+      color: rgba(232,240,255,.72);
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: rgba(235,244,255,.56);
+      margin-top: 20px;
+    }
+    .footer .url {
+      color: #dfeaff;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="bg"></div>
+    <div class="mesh"></div>
+    <div class="mesh2"></div>
+    <div class="grid"></div>
+    <div class="frame"></div>
+    <div class="content">
+      <div>
+        <div class="top">
+          <div class="brand">
+            <div class="logo">
+              <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 35C14 22.85 23.85 13 36 13C44.28 13 51 19.72 51 28C51 35.18 45.18 41 38 41H24C18.48 41 14 36.52 14 31V35Z" stroke="url(#g1)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M23 43C23 50.18 28.82 56 36 56C45.39 56 53 48.39 53 39" stroke="url(#g2)" stroke-width="4.2" stroke-linecap="round"/>
+                <path d="M17 26L8 20" stroke="#54DCC7" stroke-width="4" stroke-linecap="round"/>
+                <path d="M14 33L5 33" stroke="#79A7FF" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="37.5" cy="27.5" r="2.5" fill="#F4F8FF"/>
+                <defs>
+                  <linearGradient id="g1" x1="14" y1="13" x2="52" y2="41" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#54DCC7"/>
+                    <stop offset="1" stop-color="#79A7FF"/>
+                  </linearGradient>
+                  <linearGradient id="g2" x1="23" y1="39" x2="53" y2="56" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FFD46F"/>
+                    <stop offset="1" stop-color="#54DCC7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div>
+              <h2>ClawFounder</h2>
+              <p>AI Pipeline for OPC</p>
+            </div>
+          </div>
+          <div class="badge">OpenClaw Contest Project</div>
+        </div>
+
+        <div class="hero">
+          <div class="headline">
+            <div class="eyebrow">Flagship Poster</div>
+            <h1>
+              <span class="soft">把一个人的</span>
+              <span class="strong">创业流程</span>
+              <span class="strong">编译成 AI 流水线</span>
+            </h1>
+            <div class="lead">
+              面向 <strong>OPC（One-Person Company）</strong> 的项目系统。<br>
+              从 <strong>idea、白皮书、原型、GitHub、官网、推广</strong>，到通过 <strong>ADB 接管独立手机</strong> 补足现实接口，形成可持续推进的闭环。
+            </div>
+          </div>
+          <div class="side-stack">
+            <div class="glass quote">
+              <div class="small">Core Shift</div>
+              <h3>不是更强助手</h3>
+              <p>而是一套真正会把项目从想法推进到上线、传播与复盘的系统。</p>
+            </div>
+            <div class="glass flow">
+              <div class="small">Workflow</div>
+              <div class="flow-rows">
+                <div class="flow-row"><span class="dot"></span><span>Idea → Whitepaper → Prototype</span></div>
+                <div class="flow-row"><span class="dot"></span><span>Repo → Site → Public Link</span></div>
+                <div class="flow-row"><span class="dot"></span><span>Growth Loop → Weekly Report</span></div>
+                <div class="flow-row"><span class="dot"></span><span>ADB → Independent Device Bridge</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="bottom">
+          <div class="metric">
+            <div class="n">01</div>
+            <strong>更快验证</strong>
+            <p>把点子快速推进到原型、仓库与公开链接，更早进入真实反馈阶段。</p>
+          </div>
+          <div class="metric">
+            <div class="n">02</div>
+            <strong>更少断点</strong>
+            <p>把产品、上线、内容与移动端现实接口整合到同一条项目链路。</p>
+          </div>
+          <div class="metric">
+            <div class="n">03</div>
+            <strong>更强复用</strong>
+            <p>每次运行都在沉淀下一次仍可复用的 OPC 创业流水线能力。</p>
+          </div>
+        </div>
+        <div class="footer">
+          <div>ClawFounder · OpenClaw Contest</div>
+          <div class="url">clawfounder.projects.muran.tech</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
