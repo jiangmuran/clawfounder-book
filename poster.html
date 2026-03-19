@@ -3,20 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ClawFounder Poster V2</title>
+  <title>ClawFounder Poster Final</title>
   <style>
-    :root {
-      --bg: #07101d;
-      --bg2: #0c1d35;
-      --ink: #f4f8ff;
-      --muted: rgba(232, 240, 255, .72);
-      --line: rgba(255,255,255,.12);
-      --blue: #79a7ff;
-      --blue2: #5d78ff;
-      --teal: #54dcc7;
-      --gold: #ffd46f;
-      --shadow: 0 30px 90px rgba(0,0,0,.28);
-    }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
@@ -24,312 +12,306 @@
       height: 1920px;
       overflow: hidden;
       font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(121,167,255,.24), transparent 22%),
-        radial-gradient(circle at 88% 14%, rgba(84,220,199,.16), transparent 22%),
-        radial-gradient(circle at 70% 100%, rgba(255,212,111,.10), transparent 20%),
-        linear-gradient(180deg, #06101c 0%, #0a1730 44%, #07101d 100%);
+      background: #09111d;
+      color: #f5f1e8;
     }
     .poster {
       position: relative;
       width: 100%;
       height: 100%;
-      padding: 72px;
+      overflow: hidden;
+      background: #09111d;
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(6,10,18,.20) 0%, rgba(6,10,18,.34) 50%, rgba(6,10,18,.58) 100%),
+        url('./poster-nano-swiss-clear.png') center center / cover no-repeat;
+      filter: saturate(1.02) contrast(1.02);
+      transform: scale(1.02);
+    }
+    .grain {
+      position: absolute;
+      inset: 0;
+      opacity: .08;
+      background-image: radial-gradient(rgba(255,255,255,.55) .8px, transparent .8px);
+      background-size: 8px 8px;
+      mix-blend-mode: soft-light;
+    }
+    .frame {
+      position: absolute;
+      inset: 28px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      pointer-events: none;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 64px 60px 54px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      isolation: isolate;
     }
-    .poster::before,
-    .poster::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(90px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .poster::before {
-      width: 320px; height: 320px;
-      top: 160px; left: -80px;
-      background: rgba(93,120,255,.18);
-    }
-    .poster::after {
-      width: 360px; height: 360px;
-      right: -120px; bottom: 420px;
-      background: rgba(84,220,199,.15);
-    }
-    .top, .main, .bottom, .footer { position: relative; z-index: 2; }
-
-    .top {
+    .topbar {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 24px;
+      gap: 20px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
     .logo {
-      width: 72px; height: 72px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(135deg, rgba(121,167,255,.18), rgba(84,220,199,.16));
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      backdrop-filter: blur(12px);
       display: grid;
       place-items: center;
-      box-shadow: 0 18px 40px rgba(0,0,0,.22);
     }
-    .brand-title {
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: -.04em;
+    .brand h2 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -.05em;
+      color: #f6f2e9;
     }
-    .brand-sub {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 18px;
+    .brand p {
+      margin: 6px 0 0;
+      font-size: 16px;
+      color: rgba(245,241,232,.72);
     }
     .tag {
-      padding: 12px 18px;
+      padding: 11px 16px;
       border-radius: 999px;
-      border: 1px solid rgba(121,167,255,.24);
-      background: rgba(121,167,255,.08);
-      color: #dbe8ff;
-      font-size: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(10px);
+      color: rgba(245,241,232,.82);
+      font-size: 13px;
       letter-spacing: .12em;
       text-transform: uppercase;
     }
-
-    .main {
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      gap: 34px;
-      align-items: center;
-      margin-top: 10px;
-      flex: 1;
+    .hero {
+      max-width: 660px;
+      margin-top: 26px;
     }
-    .copy h1 {
+    .hero .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: rgba(245,241,232,.76);
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
       margin: 0;
       font-size: 92px;
-      line-height: .98;
+      line-height: .95;
       letter-spacing: -.065em;
-      max-width: 520px;
+      color: #f8f4ec;
     }
-    .copy h1 .soft {
+    .hero h1 .soft {
       display: block;
-      color: rgba(255,255,255,.52);
+      color: rgba(248,244,236,.64);
     }
-    .copy h1 .strong {
+    .hero h1 .strong {
       display: block;
-      background: linear-gradient(135deg, #ffffff 6%, #d8e5ff 42%, #89b7ff 78%, #72e3d0 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #f8f4ec;
     }
-    .copy .lead {
-      margin-top: 28px;
-      max-width: 500px;
-      font-size: 28px;
-      line-height: 1.72;
-      color: var(--muted);
-    }
-    .copy .lead strong { color: #ffffff; }
-
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 28px;
-    }
-    .chip {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      color: #dce8ff;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .visual-wrap {
-      position: relative;
-    }
-    .visual-card {
-      border-radius: 38px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-    }
-    .visual-card img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-    .floating-note {
-      position: absolute;
-      right: -8px;
-      bottom: 28px;
-      width: 250px;
-      padding: 18px 20px;
-      border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(13,27,49,.92), rgba(10,20,38,.94));
-      backdrop-filter: blur(18px);
-      box-shadow: 0 24px 56px rgba(0,0,0,.26);
-    }
-    .floating-note .small {
-      color: #a7c5ff;
-      font-size: 13px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .floating-note h3 {
-      margin: 0 0 8px;
-      font-size: 28px;
+    .hero .sub {
+      margin-top: 22px;
+      font-size: 32px;
+      line-height: 1.25;
       letter-spacing: -.04em;
+      color: #f4efe5;
+      max-width: 620px;
     }
-    .floating-note p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.62;
+    .hero .desc {
+      margin-top: 20px;
+      max-width: 640px;
+      font-size: 24px;
+      line-height: 1.7;
+      color: rgba(244,239,229,.78);
     }
-
     .bottom {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 28px;
+      gap: 20px;
     }
-    .metric {
-      padding: 24px 24px 22px;
-      border-radius: 28px;
+    .flow-card {
+      padding: 22px 24px 24px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(9,17,29,.58), rgba(9,17,29,.44));
+      backdrop-filter: blur(18px);
+      box-shadow: 0 22px 60px rgba(0,0,0,.20);
+    }
+    .flow-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .flow-head h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      color: #f7f2e8;
+    }
+    .flow-head p {
+      margin: 6px 0 0;
+      font-size: 15px;
+      color: rgba(245,241,232,.62);
+    }
+    .mini-tag {
+      padding: 8px 12px;
+      border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      box-shadow: 0 18px 46px rgba(0,0,0,.16);
-    }
-    .metric .label {
-      color: #a9c5ff;
-      font-size: 13px;
+      color: rgba(245,241,232,.74);
+      font-size: 12px;
       letter-spacing: .12em;
       text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .step {
+      position: relative;
+      min-height: 132px;
+      padding: 16px 14px 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(245,241,232,.68);
+      font-size: 24px;
+      z-index: 2;
+    }
+    .step .n {
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,241,232,.54);
       margin-bottom: 10px;
     }
-    .metric strong {
+    .step strong {
       display: block;
-      font-size: 36px;
-      line-height: 1.08;
-      letter-spacing: -.05em;
-      margin-bottom: 10px;
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: -.04em;
+      color: #f7f2e8;
+      margin-bottom: 8px;
     }
-    .metric p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 19px;
-      line-height: 1.68;
+    .step span {
+      display: block;
+      font-size: 16px;
+      line-height: 1.58;
+      color: rgba(245,241,232,.70);
     }
-
     .footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: rgba(255,255,255,.55);
       font-size: 18px;
-      margin-top: 30px;
+      color: rgba(245,241,232,.58);
+      padding: 0 4px;
     }
-    .footer .accent {
-      color: #dce8ff;
+    .footer .url {
+      color: rgba(248,244,236,.92);
       font-weight: 600;
     }
   </style>
 </head>
 <body>
   <div class="poster">
-    <section class="top">
-      <div class="brand">
-        <div class="logo">
-          <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 35C14 22.85 23.85 13 36 13C44.28 13 51 19.72 51 28C51 35.18 45.18 41 38 41H24C18.48 41 14 36.52 14 31V35Z" stroke="url(#g1)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M23 43C23 50.18 28.82 56 36 56C45.39 56 53 48.39 53 39" stroke="url(#g2)" stroke-width="4.2" stroke-linecap="round"/>
-            <path d="M17 26L8 20" stroke="#54DCC7" stroke-width="4" stroke-linecap="round"/>
-            <path d="M14 33L5 33" stroke="#79A7FF" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="37.5" cy="27.5" r="2.5" fill="#F4F8FF"/>
-            <defs>
-              <linearGradient id="g1" x1="14" y1="13" x2="52" y2="41" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#54DCC7"/>
-                <stop offset="1" stop-color="#79A7FF"/>
-              </linearGradient>
-              <linearGradient id="g2" x1="23" y1="39" x2="53" y2="56" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFD46F"/>
-                <stop offset="1" stop-color="#54DCC7"/>
-              </linearGradient>
-            </defs>
-          </svg>
+    <div class="bg"></div>
+    <div class="grain"></div>
+    <div class="frame"></div>
+    <div class="content">
+      <div>
+        <div class="topbar">
+          <div class="brand">
+            <div class="logo">
+              <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 35C14 22.85 23.85 13 36 13C44.28 13 51 19.72 51 28C51 35.18 45.18 41 38 41H24C18.48 41 14 36.52 14 31V35Z" stroke="#F4EFE5" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M23 43C23 50.18 28.82 56 36 56C45.39 56 53 48.39 53 39" stroke="#C9D1C2" stroke-width="4.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h2>ClawFounder</h2>
+              <p>AI Pipeline for OPC</p>
+            </div>
+          </div>
+          <div class="tag">OpenClaw Contest Project</div>
         </div>
-        <div>
-          <div class="brand-title">ClawFounder</div>
-          <div class="brand-sub">AI Pipeline for OPC</div>
-        </div>
-      </div>
-      <div class="tag">OpenClaw Contest Project</div>
-    </section>
 
-    <section class="main">
-      <div class="copy">
-        <h1>
-          <span class="soft">把一个人的</span>
-          <span class="strong">创业流程</span>
-          <span class="strong">编译成 AI 流水线</span>
-        </h1>
-        <div class="lead">
-          面向 <strong>OPC（One-Person Company）</strong> 的项目系统。<br>
-          从 <strong>idea、白皮书、原型、GitHub、官网、推广</strong>，到通过 <strong>ADB 接管独立手机</strong> 补足现实接口，形成可持续推进的闭环。
-        </div>
-        <div class="meta-row">
-          <div class="chip">Idea → Whitepaper → Prototype</div>
-          <div class="chip">Repo → Site → Public Link</div>
-          <div class="chip">ADB → Device Bridge</div>
+        <div class="hero">
+          <div class="eyebrow">Editorial Poster</div>
+          <h1>
+            <span class="soft">把一个人的创业流程</span>
+            <span class="strong">推进到原型、上线与增长</span>
+          </h1>
+          <div class="sub">面向 OPC 的 AI 创业流水线</div>
+          <div class="desc">不是只会聊天或做单点任务的助手，而是一套把项目从想法推进到可访问、可传播、可复盘状态的系统。</div>
         </div>
       </div>
 
-      <div class="visual-wrap">
-        <div class="visual-card">
-          <img src="./assets/nano/nano-opc.png" alt="ClawFounder visual" />
+      <div class="bottom">
+        <div class="flow-card">
+          <div class="flow-head">
+            <div>
+              <h3>核心流程</h3>
+              <p>用一条清晰的链路解释这个项目到底在做什么。</p>
+            </div>
+            <div class="mini-tag">Workflow Overview</div>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="n">01</div>
+              <strong>想法澄清</strong>
+              <span>接收 idea、问题定义与目标用户，先判断值不值得做。</span>
+            </div>
+            <div class="step">
+              <div class="n">02</div>
+              <strong>原型成型</strong>
+              <span>生成白皮书、MVP 范围和首版原型，建立项目仓库。</span>
+            </div>
+            <div class="step">
+              <div class="n">03</div>
+              <strong>上线资产</strong>
+              <span>补齐官网、说明页、公开链接和对外展示内容。</span>
+            </div>
+            <div class="step">
+              <div class="n">04</div>
+              <strong>增长闭环</strong>
+              <span>继续生成内容、推广素材、阶段汇报与反馈回流。</span>
+            </div>
+          </div>
         </div>
-        <div class="floating-note">
-          <div class="small">Core Shift</div>
-          <h3>不是更强助手</h3>
-          <p>而是一套真正会把项目从想法推进到上线、传播与复盘的系统。</p>
+        <div class="footer">
+          <div>ClawFounder · Project Poster</div>
+          <div class="url">clawfounder.projects.muran.tech</div>
         </div>
       </div>
-    </section>
-
-    <section class="bottom">
-      <div class="metric">
-        <div class="label">01</div>
-        <strong>更快验证</strong>
-        <p>缩短点子到原型、原型到公开链接的路径，让项目更快进入真实反馈阶段。</p>
-      </div>
-      <div class="metric">
-        <div class="label">02</div>
-        <strong>更少断点</strong>
-        <p>把产品、上线、内容与移动端现实接口整合到同一链路，减少跨工具与跨设备切换。</p>
-      </div>
-      <div class="metric">
-        <div class="label">03</div>
-        <strong>更强复用</strong>
-        <p>每次运行都在沉淀下一次仍可复用的 OPC 创业流水线，而不是一次性人工操作。</p>
-      </div>
-    </section>
-
-    <div class="footer">
-      <div>ClawFounder · OpenClaw Contest</div>
-      <div class="accent">https://jiangmuran.github.io/clawfounder-book/</div>
     </div>
   </div>
 </body>
