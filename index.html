@@ -432,12 +432,11 @@
       overflow: hidden;
       border: 1px solid var(--line-soft);
       background: linear-gradient(180deg, #f7faff, #ffffff);
-      min-height: 320px;
+      min-height: 260px;
     }
 
     .reveal {
-      opacity: 0;
-      transition: opacity .45s ease;
+      opacity: 1;
     }
     .reveal.visible {
       opacity: 1;
@@ -481,7 +480,7 @@
       .stage-button strong { font-size: 10px; }
       .stage-button span,
       .stage-kpis span { font-size: 9px; }
-      .stage-canvas { min-height: 200px; }
+      .stage-canvas { min-height: 180px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1003,15 +1002,10 @@
     renderStage('idea');
 
     const revealTargets = document.querySelectorAll('.panel, .metric, .compare, .timeline-item, .architecture, .quote, .card, .stage-preview, .stage-button, .section h2, .section p.subtitle');
-    revealTargets.forEach((element) => element.classList.add('reveal'));
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
-
-    revealTargets.forEach((element) => observer.observe(element));
+    revealTargets.forEach((element) => {
+      element.classList.add('reveal');
+      element.classList.add('visible');
+    });
   </script>
 </body>
 </html>
