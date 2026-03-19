@@ -141,6 +141,9 @@ python3 -m http.server 8010
 - `docs/OPENCODE_WORKFLOW.md`
 - `docs/DVCODE_NANOBANANA_WORKFLOW.md`
 - `docs/ADB_DEVICE_BRIDGE.md`
+- `docs/SKILLS_AND_DEPENDENCIES.md`
+- `docs/TUTORIAL.md`
+- `docs/DEMO_SCRIPT.md`
 
 ---
 
