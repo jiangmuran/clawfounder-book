@@ -1,69 +1,167 @@
 # ClawFounder｜面向 OPC 的 AI 创业流水线
 
-比赛项目说明站（GitHub Pages 版本）。
+ClawFounder 是一个面向 `OPC（One-Person Company）` 场景的 AI 项目系统。
 
-## 项目定位
+它试图解决的问题不是“某个单点任务能否自动化”，而是：**一个人如何把项目从 idea 稳定推进到原型、上线、传播与复盘**。
 
-- 项目名：`ClawFounder`
-- 副标题：`面向 OPC（One-Person Company）的 AI 创业流水线`
-- 一句话简介：ClawFounder 将点子讨论、白皮书、原型开发、GitHub 建仓、网站上线、内容推广，以及通过 ADB 接管独立手机实现的现实接口动作，收敛为一条统一的项目闭环。
+本仓库包含：
 
-## 页面定位
+- 评委可直接访问的项目说明页
+- 宣传海报与主视觉资源
+- 面向开发者/评委的架构与流程文档
+- OpenCode、dvcode / Nano Banana、ADB 独立手机桥接的说明文档
+- 一组可复用的示例脚本
 
-本页是给评委直接阅读的项目说明书，不再使用口语化的“给我做什么”的表达，而是从评审视角说明：
+---
 
-- 项目解决了什么问题
-- 工作流如何分阶段推进
-- 系统架构如何构成
-- 与普通 Agent 展示相比差异在哪里
-- 为什么这套系统对 OPC 具有实际意义
+## 项目概述
 
-## 当前内容结构
+ClawFounder 将以下环节收敛为统一闭环：
 
-- 项目概述
-- 时间线
-- 系统架构图
-- 能力矩阵
-- 评审视角下的价值
-- 对比图
-- 结论
+1. `Idea Intake`：输入想法、问题定义与目标用户
+2. `Spec Generation`：生成白皮书、MVP 范围、执行清单
+3. `Prototype & Repo`：调用编码代理产出原型并建立 GitHub 仓库
+4. `Launch Assets`：补齐官网、说明页、对外展示页面
+5. `Growth Loop`：生成内容、推广计划、阶段汇报与反馈回流
+6. `ADB Device Bridge`：通过 ADB 接管独立手机，将移动端专属动作接入工作流
 
-## 比赛提交建议
+它不是“更多工具的堆叠”，而是一条面向项目生命周期的推进链。
 
-### `project.title`
+---
 
-`ClawFounder｜面向 OPC 的 AI 创业流水线`
+## 核心能力
 
-### `project.description`
+### 1. 产品孵化
 
-ClawFounder 是一套面向 OPC（One-Person Company）的 AI 创业流水线。它解决的问题不是“不会写代码”，而是 OPC 很难低成本、持续地把想法做出来并推向市场。系统会先围绕一个新点子完成需求讨论、定位判断和白皮书生成；再将方案交给编码代理做出可运行原型，并在 GitHub 中建立项目资产；随后继续补齐品牌视觉、项目说明页、官网与上线入口。在项目上线后，系统还能根据会议录音、论坛纪要和外部信息生成文章、脚本、推广素材和阶段汇报，形成内容飞轮。更关键的是，ClawFounder 通过 ADB 接管独立手机，把需要移动端介入的现实接口动作接入统一流程，补齐真实世界中最常见的自动化断点。最终，它把过去需要产品、设计、开发、运营共同完成的流程，压缩为 OPC 可持续运行的一条项目闭环。
+- 需求讨论与价值判断
+- 白皮书与 MVP 范围生成
+- 原型开发与仓库初始化
 
-## 3 分钟视频建议
+### 2. 对外上线
 
-- `0:00 - 0:20`：问题提出——为什么 OPC 做项目总在中途失速
-- `0:20 - 0:50`：输入 idea，生成白皮书与规格
-- `0:50 - 1:20`：原型生成、GitHub 建仓、项目资产成型
-- `1:20 - 1:45`：官网 / 说明页 / 上线入口
-- `1:45 - 2:10`：内容飞轮：会议纪要 → 文章 / 脚本 / 推广素材
-- `2:10 - 2:35`：ADB 独立手机接管：移动端专属动作 / 平台确认
-- `2:35 - 3:00`：总结——不是泛 Agent，而是面向 OPC 的项目推进系统
+- 项目说明书页面
+- GitHub Pages / 公开访问链接
+- 海报与视觉资产
 
-## 海报文案建议
+### 3. 内容飞轮
 
-### 主标题
+- 会议纪要 / 论坛信息提纯
+- 文章、脚本、推广素材生成
+- 阶段复盘与周报输出
 
-`ClawFounder`
+### 4. 现实接口层
 
-### 副标题
+- 通过 ADB 接管独立手机
+- 把移动端专属动作纳入统一工作流
+- 补足桌面端自动化在现实世界中的断点
 
-`面向 OPC 的 AI 创业流水线`
+---
 
-### 三个卖点
+## 仓库结构
 
-- 从点子到白皮书、原型、GitHub 和官网上线
-- 从会议输入到文章、脚本和推广素材
-- 从 ADB 独立手机接管到移动端专属动作桥接
+```text
+clawfounder-book/
+├── index.html                      # 项目说明页（GitHub Pages）
+├── poster.html                     # 海报页面源码
+├── poster-v2.png                   # 当前宣传海报成品
+├── poster.png                      # 早期海报导出
+├── assets/
+│   └── nano/
+│       └── nano-opc.png            # Nano Banana 成功生成的主视觉
+├── docs/
+│   ├── ARCHITECTURE.md             # 系统架构说明
+│   ├── WORKFLOWS.md                # 完整流程说明
+│   ├── OPENCODE_WORKFLOW.md        # OpenCode 调用流程
+│   ├── DVCODE_NANOBANANA_WORKFLOW.md
+│   └── ADB_DEVICE_BRIDGE.md        # ADB 独立手机桥接说明
+├── scripts/
+│   ├── run_opencode_prototype.sh   # 原型开发示例脚本
+│   ├── run_nanobanana_poster.sh    # Nano Banana 海报生成示例
+│   ├── capture_device_bridge_notes.sh
+│   └── deploy_pages.sh             # Pages 发布示例脚本
+├── output/                         # 临时日志与本地辅助脚本
+└── README.md
+```
 
-### 底部一句
+---
 
-`让 OPC 首次拥有接近小团队的项目推进能力。`
+## 快速开始
+
+### 本地预览项目说明页
+
+```bash
+cd /root/projects/clawfounder-book
+python3 -m http.server 8010
+```
+
+然后访问：
+
+- `http://127.0.0.1:8010/index.html`
+
+### 查看线上页面
+
+- 项目说明页：<https://jiangmuran.github.io/clawfounder-book/>
+- 当前海报：<https://raw.githubusercontent.com/jiangmuran/clawfounder-book/main/poster-v2.png>
+
+---
+
+## GitHub Pages
+
+本仓库以静态方式部署到 GitHub Pages。
+
+默认入口：
+
+- `index.html`
+
+海报等静态资源可直接通过仓库 raw 链接或 Pages 路径访问。
+
+---
+
+## 海报与视觉资源
+
+### 当前成品
+
+- 海报：`poster-v2.png`
+- 主视觉：`assets/nano/nano-opc.png`
+
+### 当前策略
+
+- 项目主视觉优先使用 `Nano Banana` 生成
+- 说明页中的结构图、架构图以 SVG / HTML 可控方式补充
+- 当 `Nano Banana` 遇到官方配额限制时，可先用仓库中的 SVG 视觉作为兜底
+
+---
+
+## 流程总览
+
+完整说明见：
+
+- `docs/WORKFLOWS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/OPENCODE_WORKFLOW.md`
+- `docs/DVCODE_NANOBANANA_WORKFLOW.md`
+- `docs/ADB_DEVICE_BRIDGE.md`
+
+---
+
+## 当前仓库定位
+
+这个仓库不是完整产品代码仓库，而是：
+
+1. 比赛项目说明与展示仓库
+2. 项目工作流与方法论文档仓库
+3. 视觉资产与海报承载仓库
+4. 后续扩展为正式产品仓库的展示前台
+
+如果后续进入更完整的工程阶段，可以继续拆分为：
+
+- `frontend` / `product-site`
+- `workflow-engine`
+- `device-bridge`
+- `content-pipeline`
+
+---
+
+## License
+
+当前仓库用于项目展示与比赛说明，许可证按后续需要补充。

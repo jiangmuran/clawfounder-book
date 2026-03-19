@@ -1,0 +1,21 @@
+# Logs
+output/*.log
+output/*.stdout
+
+# Temporary runtime files
+*.tmp
+*.temp
+.DS_Store
+
+# Node / editor noise
+node_modules/
+.vscode/
+
+# Keep final assets tracked
+!poster.png
+!poster-v2.png
+!poster.html
+!index.html
+!assets/
+!assets/nano/
+!assets/nano/*.png
